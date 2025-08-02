@@ -512,6 +512,19 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
   });
+   // TOGGLE NAV-TOOLS SECTION ON BUTTON CLICK
+    const aboutButton = block.querySelector('.button[title="About us"]');
+    if (aboutButton) {
+      aboutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const navToolsSection = document.querySelector('.section.nav-tools');
+        if (navToolsSection) {
+          const isVisible = navToolsSection.style.display !== 'none';
+          navToolsSection.style.display = isVisible ? 'none' : 'block';
+        }
+      });
+    }
+  
 }
 
 /**
