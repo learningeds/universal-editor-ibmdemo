@@ -480,6 +480,7 @@ function decorateSections(main) {
   main.querySelectorAll(':scope > div:not([data-section-status])').forEach((section) => {
     const wrappers = [];
     let defaultContent = false;
+
     [...section.children].forEach((e) => {
       if ((e.tagName === 'DIV' && e.className) || !defaultContent) {
         const wrapper = document.createElement('div');
@@ -489,6 +490,7 @@ function decorateSections(main) {
       }
       wrappers[wrappers.length - 1].append(e);
     });
+
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
@@ -511,21 +513,23 @@ function decorateSections(main) {
       });
       sectionMeta.parentNode.remove();
     }
-  });
-   // TOGGLE NAV-TOOLS SECTION ON BUTTON CLICK
-    const aboutButton = block.querySelector('.button[title="About us"]');
-    if (aboutButton) {
-      aboutButton.addEventListener('click', (e) => {
+
+    // === ADD THIS TOGGLE LOGIC ===
+    // If this section has "About us" button, attach toggle listener
+    const aboutBtn = section.querySelector('.default-content-wrapper .button[title="About us"]');
+    if (aboutBtn) {
+      aboutBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const navToolsSection = document.querySelector('.section.nav-tools');
         if (navToolsSection) {
-          const isVisible = navToolsSection.style.display !== 'none';
-          navToolsSection.style.display = isVisible ? 'none' : 'block';
+          const currentDisplay = window.getComputedStyle(navToolsSection).display;
+          navToolsSection.style.display = currentDisplay === 'none' ? 'block' : 'none';
         }
       });
     }
-  
+  });
 }
+
 
 /**
  * Builds a block DOM Element from a two dimensional array, string, or object
