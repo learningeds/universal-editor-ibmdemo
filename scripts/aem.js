@@ -494,7 +494,17 @@ function decorateSections(main) {
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
-    section.style.display = 'none';
+
+    // Hide toggleable sections initially
+    const isNavTools = section.classList.contains('nav-tools');
+    const hasFirstButtonEnvironment = (() => {
+      const buttons = section.querySelectorAll('.default-content-wrapper .button');
+      return buttons.length > 0 && buttons[0].textContent.trim() === 'Environment';
+    })();
+
+    if (isNavTools || hasFirstButtonEnvironment) {
+      section.style.display = 'none'; // hide by default
+    }
 
     // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
@@ -514,8 +524,7 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
 
-    // === ADD THIS TOGGLE LOGIC ===
-    // If this section has "About us" button, attach toggle listener
+    // === ABOUT US TOGGLE ===
     const aboutBtn = section.querySelector('.default-content-wrapper .button[title="About us"]');
     if (aboutBtn) {
       aboutBtn.addEventListener('click', (e) => {
@@ -527,9 +536,24 @@ function decorateSections(main) {
         }
       });
     }
+
+    // === SUSTAINABILITY TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Sustainability"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Environment') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
   });
 }
-
 
 /**
  * Builds a block DOM Element from a two dimensional array, string, or object
