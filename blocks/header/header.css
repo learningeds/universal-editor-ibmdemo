@@ -52,6 +52,28 @@ header nav p {
 
 header nav a:any-link {
   color: currentcolor;
+  text-decoration: none;
+}
+
+/* Buttons in nav */
+header nav a.button {
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-weight: 500;
+  font-size: var(--body-font-size-s);
+  padding: 8px 16px;
+  border-radius: 24px;
+  transition: background-color 0.3s ease;
+}
+
+header nav a.button:hover,
+header nav a.button:focus {
+  text-decoration: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.05); /* Optional hover background */
+  outline: none;
 }
 
 /* hamburger */
