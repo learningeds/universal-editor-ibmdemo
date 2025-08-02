@@ -623,7 +623,22 @@ function decorateSections(main) {
     }
   });
   
- 
+  // === English TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="English"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'The Virtual Showroom') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  });
 }
 
 
