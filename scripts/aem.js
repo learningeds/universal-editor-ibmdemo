@@ -497,13 +497,16 @@ function decorateSections(main) {
 
     // Hide toggleable sections initially
     const isNavTools = section.classList.contains('nav-tools');
-    const hasFirstButtonEnvironment = (() => {
-      const buttons = section.querySelectorAll('.default-content-wrapper .button');
-      return buttons.length > 0 && buttons[0].textContent.trim() === 'Environment';
-    })();
-
-    if (isNavTools || hasFirstButtonEnvironment) {
-      section.style.display = 'none'; // hide by default
+    const firstButtonText = section.querySelector('.default-content-wrapper .button')?.textContent.trim();
+    const toggleableFirstButtons = [
+      'Environment',
+      'Jobs',
+      'Press releases',
+      'Atlas Copco Group for investors',
+      'The Virtual Showroom'
+    ];
+    if (isNavTools || toggleableFirstButtons.includes(firstButtonText)) {
+      section.style.display = 'none';
     }
 
     // Process section metadata
@@ -524,122 +527,37 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
 
-    // === ABOUT US TOGGLE ===
-    const aboutBtn = section.querySelector('.default-content-wrapper .button[title="About us"]');
-    if (aboutBtn) {
-      aboutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const navToolsSection = document.querySelector('.section.nav-tools');
-        if (navToolsSection) {
-          const currentDisplay = window.getComputedStyle(navToolsSection).display;
-          navToolsSection.style.display = currentDisplay === 'none' ? 'block' : 'none';
-        }
-      });
-    }
+    // Handle all buttons that should trigger toggles
+    const toggleMappings = {
+      'About us': 'nav-tools',
+      'Sustainability': 'Environment',
+      'Careers': 'Jobs',
+      'Media': 'Press releases',
+      'Investors': 'Atlas Copco Group for investors',
+      'Innovation': 'The Virtual Showroom',
+      'English': 'The Virtual Showroom'
+    };
 
-    // === SUSTAINABILITY TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Sustainability"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Environment') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
+    Object.entries(toggleMappings).forEach(([triggerTitle, targetFirstButtonText]) => {
+      const triggerBtn = section.querySelector(`.default-content-wrapper .button[title="${triggerTitle}"]`);
+      if (triggerBtn) {
+        triggerBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+          allSections.forEach((sec) => {
+            const firstBtn = sec.querySelector('.default-content-wrapper .button');
+            if (sec.classList.contains(toggleMappings[triggerTitle]) || 
+                (firstBtn && firstBtn.textContent.trim() === targetFirstButtonText)) {
+              const currentDisplay = window.getComputedStyle(sec).display;
+              sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+            }
+          });
         });
-      });
-    }
-  });
-  
-   // === CARRERS TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Careers"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Jobs') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
-        });
-      });
-    }
-  });
-  
-   // === Media TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Media"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Press releases') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
-        });
-      });
-    }
-  });
-  
-   // === Investors TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Investors"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Atlas Copco Group for investors') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
-        });
-      });
-    }
-  });
-  
-  
-   // === Innovation TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Innovation"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'The Virtual Showroom') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
-        });
-      });
-    }
-  });
-  
-  // === English TOGGLE ===
-    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="English"]');
-    if (sustainBtn) {
-      sustainBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        allSections.forEach((sec) => {
-          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
-          if (buttons.length > 0 && buttons[0].textContent.trim() === 'The Virtual Showroom') {
-            const currentDisplay = window.getComputedStyle(sec).display;
-            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
-          }
-        });
-      });
-    }
+      }
+    });
   });
 }
+
 
 
 /**
