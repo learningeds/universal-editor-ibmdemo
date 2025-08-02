@@ -599,6 +599,19 @@ function decorateBlock(block) {
     if (section) section.classList.add(`${shortBlockName}-container`);
     // eslint-disable-next-line no-use-before-define
     decorateButtons(block);
+     // TOGGLE NAV-TOOLS SECTION ON BUTTON CLICK
+    const aboutButton = block.querySelector('.button[title="About us"]');
+    if (aboutButton) {
+      aboutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        const navToolsSection = document.querySelector('.section.nav-tools');
+        if (navToolsSection) {
+          const isVisible = navToolsSection.style.display !== 'none';
+          navToolsSection.style.display = isVisible ? 'none' : 'block';
+        }
+      });
+    }
+  
   }
 }
 
