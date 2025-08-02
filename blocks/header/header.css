@@ -17,7 +17,7 @@ header nav {
   margin: auto;
   max-width: 1248px;
   height: var(--nav-height);
-  padding: 0 24px;
+  padding: 0 20px;
   font-family: var(--body-font-family);
 }
 
@@ -36,7 +36,7 @@ header nav[aria-expanded='true'] {
     justify-content: space-between;
     gap: 0 32px;
     max-width: 1264px;
-    padding: 0 32px;
+    padding: 0 20px;
   }
 
   header nav[aria-expanded='true'] {
@@ -59,6 +59,7 @@ header nav a:any-link:hover {
   color: orange;
   text-decoration: underline;
 }
+
 header nav a.button {
   background: transparent !important;
   color: black !important;
@@ -78,7 +79,6 @@ header nav a.button:focus {
   text-decoration: underline !important;
   outline: none;
 }
-
 
 /* hamburger */
 header nav .nav-hamburger {
