@@ -553,7 +553,79 @@ function decorateSections(main) {
       });
     }
   });
+  
+   // === CARRERS TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Careers"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Jobs') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  });
+  
+   // === Media TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Media"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Press releases') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  });
+  
+   // === Investors TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Investors"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'Atlas Copco Group for investors') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  });
+  
+  
+   // === Innovation TOGGLE ===
+    const sustainBtn = section.querySelector('.default-content-wrapper .button[title="Innovation"]');
+    if (sustainBtn) {
+      sustainBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        allSections.forEach((sec) => {
+          const buttons = sec.querySelectorAll('.default-content-wrapper .button');
+          if (buttons.length > 0 && buttons[0].textContent.trim() === 'The Virtual Showroom') {
+            const currentDisplay = window.getComputedStyle(sec).display;
+            sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+          }
+        });
+      });
+    }
+  });
+  
+ 
 }
+
 
 /**
  * Builds a block DOM Element from a two dimensional array, string, or object
