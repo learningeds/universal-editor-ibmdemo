@@ -59,13 +59,11 @@ header nav a:any-link:hover {
   color: orange;
   text-decoration: underline;
 }
-
-/* Updated nav button style */
 header nav a.button {
-  background: transparent;
-  color: white;
-  text-decoration: none;
-  border: none;
+  background: transparent !important;
+  color: white !important;
+  text-decoration: none !important;
+  border: none !important;
   font-weight: 500;
   font-size: var(--body-font-size-s);
   padding: 8px 16px;
@@ -75,11 +73,12 @@ header nav a.button {
 
 header nav a.button:hover,
 header nav a.button:focus {
-  color: orange;
-  text-decoration: underline;
-  background: transparent;
+  background: transparent !important;
+  color: orange !important;
+  text-decoration: underline !important;
   outline: none;
 }
+
 
 /* hamburger */
 header nav .nav-hamburger {
