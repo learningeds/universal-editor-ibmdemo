@@ -61,7 +61,7 @@ header nav a:any-link:hover {
 }
 header nav a.button {
   background: transparent !important;
-  color: white !important;
+  color: black !important;
   text-decoration: none !important;
   border: none !important;
   font-weight: 500;
