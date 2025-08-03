@@ -484,8 +484,10 @@ function decorateSections(main) {
     'Media': 'Press releases',
     'Investors': 'Atlas Copco Group for investors',
     'Innovation': 'The Virtual Showroom',
-    'English': 'The Virtual Showroom'
+    'English': 'The Virtual Showroom',
   };
+
+  const allSections = [];
 
   main.querySelectorAll(':scope > div:not([data-section-status])').forEach((section) => {
     const wrappers = [];
@@ -505,6 +507,8 @@ function decorateSections(main) {
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
 
+    allSections.push(section); // store section for toggling later
+
     // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
@@ -522,42 +526,43 @@ function decorateSections(main) {
       });
       sectionMeta.parentNode.remove();
     }
+  });
 
-    // === ALL TOGGLE LOGIC INSIDE HERE ===
-    Object.entries(toggleMappings).forEach(([triggerTitle, targetMatchText]) => {
-      const triggerBtn = section.querySelector(`.default-content-wrapper .button[title="${triggerTitle}"]`);
-      if (triggerBtn) {
-        // On page load: hide relevant toggle targets
-        const toggleSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-        toggleSections.forEach((sec) => {
-          const firstBtn = sec.querySelector('.default-content-wrapper .button');
-          const isTarget =
-            sec.classList.contains(targetMatchText) ||
-            (firstBtn && firstBtn.textContent.trim() === targetMatchText);
-          if (isTarget) {
-            sec.style.display = 'none';
-          }
-        });
+  // Hide all toggleable sections on load
+  allSections.forEach((sec) => {
+    const firstBtn = sec.querySelector('.default-content-wrapper .button');
+    const classNames = [...sec.classList];
+    const isToggleTarget = classNames.some((cls) => Object.values(toggleMappings).includes(cls)) ||
+      (firstBtn && Object.values(toggleMappings).includes(firstBtn.textContent.trim()));
+    if (isToggleTarget) {
+      sec.style.display = 'none';
+    }
+  });
 
-        // Click event to show/hide that section only
-        triggerBtn.addEventListener('click', (e) => {
+  // Setup toggle buttons
+  allSections.forEach((section) => {
+    Object.entries(toggleMappings).forEach(([triggerTitle, targetIdentifier]) => {
+      const btn = section.querySelector(`.default-content-wrapper .button[title="${triggerTitle}"]`);
+      if (btn) {
+        btn.addEventListener('click', (e) => {
           e.preventDefault();
-          toggleSections.forEach((sec) => {
+          allSections.forEach((sec) => {
             const firstBtn = sec.querySelector('.default-content-wrapper .button');
-            const isTarget =
-              sec.classList.contains(targetMatchText) ||
-              (firstBtn && firstBtn.textContent.trim() === targetMatchText);
+            const matchesTarget =
+              sec.classList.contains(targetIdentifier) ||
+              (firstBtn && firstBtn.textContent.trim() === targetIdentifier);
 
-            if (isTarget) {
+            // Toggle target section only
+            if (matchesTarget) {
               const isHidden = window.getComputedStyle(sec).display === 'none';
               sec.style.display = isHidden ? 'block' : 'none';
             } else {
-              // Hide other toggleable sections
-              const btn = sec.querySelector('.default-content-wrapper .button');
-              if (
+              // Hide all other toggle sections
+              const btnCheck = sec.querySelector('.default-content-wrapper .button');
+              const isOtherToggle =
                 sec.classList.contains('nav-tools') ||
-                (btn && Object.values(toggleMappings).includes(btn.textContent.trim()))
-              ) {
+                (btnCheck && Object.values(toggleMappings).includes(btnCheck.textContent.trim()));
+              if (isOtherToggle) {
                 sec.style.display = 'none';
               }
             }
@@ -567,7 +572,6 @@ function decorateSections(main) {
     });
   });
 }
-
 
 
 
