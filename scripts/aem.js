@@ -477,6 +477,8 @@ function decorateIcons(element, prefix = '') {
  * @param {Element} main The container element
  */
 function decorateSections(main) {
+   document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]')
+    .forEach(sec => sec.style.display = 'none');
   main.querySelectorAll(':scope > div:not([data-section-status])').forEach((section) => {
     const wrappers = [];
     let defaultContent = false;
