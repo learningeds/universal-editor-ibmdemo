@@ -477,8 +477,7 @@ function decorateIcons(element, prefix = '') {
  * @param {Element} main The container element
  */
 function decorateSections(main) {
-   document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]')
-    .forEach(sec => sec.style.display = 'none');
+  
   main.querySelectorAll(':scope > div:not([data-section-status])').forEach((section) => {
     const wrappers = [];
     let defaultContent = false;
@@ -557,6 +556,17 @@ function decorateSections(main) {
         });
       }
     });
+  });
+  // === HIDE ONLY SECTIONS THAT ARE TOGGLABLE ===
+  const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+  allSections.forEach((sec) => {
+    const firstBtn = sec.querySelector('.default-content-wrapper .button');
+    if (
+      sec.classList.contains('nav-tools') ||
+      (firstBtn && Object.values(toggleMappings).includes(firstBtn.textContent.trim()))
+    ) {
+      sec.style.display = 'none';
+    }
   });
 }
 
