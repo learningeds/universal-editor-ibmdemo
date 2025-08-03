@@ -477,7 +477,16 @@ function decorateIcons(element, prefix = '') {
  * @param {Element} main The container element
  */
 function decorateSections(main) {
-  
+  const toggleMappings = {
+    'About us': 'nav-tools',
+    'Sustainability': 'Environment',
+    'Careers': 'Jobs',
+    'Media': 'Press releases',
+    'Investors': 'Atlas Copco Group for investors',
+    'Innovation': 'The Virtual Showroom',
+    'English': 'The Virtual Showroom'
+  };
+
   main.querySelectorAll(':scope > div:not([data-section-status])').forEach((section) => {
     const wrappers = [];
     let defaultContent = false;
@@ -495,20 +504,6 @@ function decorateSections(main) {
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.dataset.sectionStatus = 'initialized';
-
-    // Hide toggleable sections initially
-    const isNavTools = section.classList.contains('nav-tools');
-    const firstButtonText = section.querySelector('.default-content-wrapper .button')?.textContent.trim();
-    const toggleableFirstButtons = [
-      'Environment',
-      'Jobs',
-      'Press releases',
-      'Atlas Copco Group for investors',
-      'The Virtual Showroom'
-    ];
-    if (isNavTools || toggleableFirstButtons.includes(firstButtonText)) {
-      section.style.display = 'none';
-    }
 
     // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
@@ -528,47 +523,51 @@ function decorateSections(main) {
       sectionMeta.parentNode.remove();
     }
 
-    // Handle all buttons that should trigger toggles
-    const toggleMappings = {
-      'About us': 'nav-tools',
-      'Sustainability': 'Environment',
-      'Careers': 'Jobs',
-      'Media': 'Press releases',
-      'Investors': 'Atlas Copco Group for investors',
-      'Innovation': 'The Virtual Showroom',
-      'English': 'The Virtual Showroom'
-    };
-
-    Object.entries(toggleMappings).forEach(([triggerTitle, targetFirstButtonText]) => {
+    // === ALL TOGGLE LOGIC INSIDE HERE ===
+    Object.entries(toggleMappings).forEach(([triggerTitle, targetMatchText]) => {
       const triggerBtn = section.querySelector(`.default-content-wrapper .button[title="${triggerTitle}"]`);
       if (triggerBtn) {
+        // On page load: hide relevant toggle targets
+        const toggleSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
+        toggleSections.forEach((sec) => {
+          const firstBtn = sec.querySelector('.default-content-wrapper .button');
+          const isTarget =
+            sec.classList.contains(targetMatchText) ||
+            (firstBtn && firstBtn.textContent.trim() === targetMatchText);
+          if (isTarget) {
+            sec.style.display = 'none';
+          }
+        });
+
+        // Click event to show/hide that section only
         triggerBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-          allSections.forEach((sec) => {
+          toggleSections.forEach((sec) => {
             const firstBtn = sec.querySelector('.default-content-wrapper .button');
-            if (sec.classList.contains(toggleMappings[triggerTitle]) || 
-                (firstBtn && firstBtn.textContent.trim() === targetFirstButtonText)) {
-              const currentDisplay = window.getComputedStyle(sec).display;
-              sec.style.display = currentDisplay === 'none' ? 'block' : 'none';
+            const isTarget =
+              sec.classList.contains(targetMatchText) ||
+              (firstBtn && firstBtn.textContent.trim() === targetMatchText);
+
+            if (isTarget) {
+              const isHidden = window.getComputedStyle(sec).display === 'none';
+              sec.style.display = isHidden ? 'block' : 'none';
+            } else {
+              // Hide other toggleable sections
+              const btn = sec.querySelector('.default-content-wrapper .button');
+              if (
+                sec.classList.contains('nav-tools') ||
+                (btn && Object.values(toggleMappings).includes(btn.textContent.trim()))
+              ) {
+                sec.style.display = 'none';
+              }
             }
           });
         });
       }
     });
   });
-  // === HIDE ONLY SECTIONS THAT ARE TOGGLABLE ===
-  const allSections = document.querySelectorAll('.section[data-section-status="loaded"], .section[data-section-status="initialized"]');
-  allSections.forEach((sec) => {
-    const firstBtn = sec.querySelector('.default-content-wrapper .button');
-    if (
-      sec.classList.contains('nav-tools') ||
-      (firstBtn && Object.values(toggleMappings).includes(firstBtn.textContent.trim()))
-    ) {
-      sec.style.display = 'none';
-    }
-  });
 }
+
 
 
 
