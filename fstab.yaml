@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "http://localhost:3000/bin/franklin.delivery/adobe-rnd/aem-boilerplate-xwalk/main"
+    url: "http://localhost:4502/bin/franklin.delivery/learningeds/universal-editor-ibmdemo/main"
     type: "markup"
     suffix: ".html"
