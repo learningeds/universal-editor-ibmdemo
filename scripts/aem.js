@@ -690,7 +690,7 @@ function decorateBlocks(main) {
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock('header-nav-bar', '');
+  const headerBlock = buildBlock('navigation-bar', '');
   header.append(headerBlock);
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);
