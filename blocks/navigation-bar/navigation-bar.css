@@ -11,24 +11,36 @@
     width: 235px;
 }
 
-/* Remove the old injected underline (::after) */
-.navigation-bar .row.main nav a[aria-current="page"]::after {
-  display: none !important;
-}
-
-/* Default state: white text, no underline */
+/* Reset links */
 .navigation-bar .row.main nav a {
   color: #fff;
   font-weight: 700;
   text-decoration: none;
-  padding-bottom: .6rem;
-  border-bottom: 3px solid transparent; /* invisible border for alignment */
-  transition: color .2s ease, border-color .2s ease;
+  position: relative; /* so ::after is relative to link */
+  padding: .6rem .4rem;
+  transition: color .2s ease;
 }
 
-/* Hover + Active: red text and red underline */
+/* underline using ::after, aligned to nav row bottom */
+.navigation-bar .row.main nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;               /* align with the nav bar border */
+  height: 3px;
+  background: transparent;
+  border-radius: 2px;
+  transition: background .2s ease;
+}
+
+/* hover/active styles */
 .navigation-bar .row.main nav a:hover,
 .navigation-bar .row.main nav a[aria-current="page"] {
   color: #d4001a;
-  border-bottom-color: #d4001a;
+}
+
+.navigation-bar .row.main nav a:hover::after,
+.navigation-bar .row.main nav a[aria-current="page"]::after {
+  background: #d4001a;
 }
