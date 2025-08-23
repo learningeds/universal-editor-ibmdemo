@@ -1,44 +1,69 @@
+// Header Nav Bar block for Edge Delivery Services + Universal Editor
+// Reads authored data from block.blockModel instead of DOM
 
 const makeUID = (prefix = 'eds-hnb') => {
-  const b = new Uint8Array(6);
-  crypto.getRandomValues(b);
-  return `${prefix}-${[...b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
+  return `${prefix}-${crypto.randomUUID()}`;
 };
 
 function buildScopedStyles(uid, sticky) {
   const s = `[data-uid="${uid}"]`;
   return `
 ${s}{ background:#000; color:#fff; ${sticky ? 'position:sticky;top:0;z-index:100;' : ''} }
-${s} .bar{ max-width:1200px; margin:0 auto; padding:.625rem 1rem; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; border-bottom:2px solid #fff; }
+${s} .bar{ max-width:1200px; margin:0 auto; padding:.625rem 1rem;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; border-bottom:2px solid #fff; }
 ${s} .brand{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:inherit; }
 ${s} .brand img{ height:32px; width:auto; display:block; }
 ${s} .nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap:2rem; }
-${s} .nav a{ color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; padding:.75rem .25rem; display:inline-block; position:relative; }
-${s} .nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:-.5rem; height:3px; background:#d4001a; border-radius:2px; }
+${s} .nav a{ color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px;
+  padding:.75rem .25rem; display:inline-block; position:relative; }
+${s} .nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0;
+  bottom:-.5rem; height:3px; background:#d4001a; border-radius:2px; }
 ${s} .right{ display:flex; align-items:center; gap:1.25rem; font-size:.9rem; }
 ${s} .right a{ color:#fff; text-decoration:none; opacity:.9; font-weight:600; }
 ${s} .right a:hover{ opacity:1; }
 ${s} .nav-toggle{ display:none; }
 @media (max-width: 900px){
   ${s} .bar{ grid-template-columns:auto auto 1fr; }
-  ${s} .nav-toggle{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background:transparent; border:1px solid #333; border-radius:.5rem; }
-  ${s} .nav > ul{ display:none; position:absolute; left:0; right:0; top:100%; background:#000; padding:.5rem 1rem; flex-direction:column; gap:.25rem; border-top:1px solid #222; }
+  ${s} .nav-toggle{ display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; background:transparent; border:1px solid #333; border-radius:.5rem; }
+  ${s} .nav > ul{ display:none; position:absolute; left:0; right:0; top:100%; background:#000;
+    padding:.5rem 1rem; flex-direction:column; gap:.25rem; border-top:1px solid #222; }
   ${s}.open .nav > ul{ display:flex; }
   ${s} .right{ display:none; }
 }`;
 }
 
+function buildMenu(menuItems = []) {
+  const ul = document.createElement('ul');
+  menuItems.forEach(item => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.textContent = item.label || '';
+    a.href = item.href || '#';
+    li.append(a);
+
+    if (item.children && item.children.length) {
+      const sub = document.createElement('ul');
+      item.children.forEach(child => {
+        const cli = document.createElement('li');
+        const ca = document.createElement('a');
+        ca.textContent = child.label || '';
+        ca.href = child.href || '#';
+        cli.append(ca);
+        sub.append(cli);
+      });
+      li.classList.add('has-sub');
+      li.append(sub);
+    }
+
+    ul.append(li);
+  });
+  return ul;
+}
+
 export default function decorate(block) {
+  const model = block.blockModel || {}; // UE injects this
   const uid = makeUID();
-  const sticky = block?.dataset?.sticky === 'true' || false;
-
-  // grab authored elements but ignore stray text
-  const img = block.querySelector('img');
-  const menuUL = block.querySelector(':scope > ul, :scope > div > ul');
-  const rightLinks = [...block.querySelectorAll(':scope > a, :scope > div > a')];
-
-  block.innerHTML = '';
-
   const scope = document.createElement('div');
   scope.dataset.uid = uid;
   scope.className = 'eds-header-nav-bar';
@@ -46,51 +71,59 @@ export default function decorate(block) {
   const bar = document.createElement('div');
   bar.className = 'bar';
 
-  // brand
+  // Brand
   const brand = document.createElement('a');
   brand.className = 'brand';
-  brand.href = '/';
-  if (img) brand.append(img.cloneNode(true)); else brand.textContent = 'Home';
-
-  // mobile toggle
-  const btn = document.createElement('button');
-  btn.className = 'nav-toggle';
-  btn.setAttribute('aria-label','Menu');
-  btn.innerHTML = '<span></span>';
-  btn.addEventListener('click', ()=> scope.classList.toggle('open'));
-
-  // menu
-  const nav = document.createElement('nav');
-  nav.className = 'nav';
-  if (menuUL) {
-    const clean = menuUL.cloneNode(true);
-    clean.querySelectorAll('li').forEach((li)=>{
-      const a = li.querySelector('a');
-      [...li.childNodes].forEach((n)=>{ if (n !== a && n.nodeType === 3) n.remove(); });
-      if (!a) li.remove();
-    });
-    nav.append(clean);
+  brand.href = model.brand_link || '/';
+  if (model.brand_logo) {
+    const img = document.createElement('img');
+    img.src = model.brand_logo;
+    img.alt = model.brand_logoAlt || 'Logo';
+    brand.append(img);
   } else {
-    nav.append(document.createElement('ul'));
+    brand.textContent = 'Home';
   }
 
-  // right side
+  // Menu
+  const nav = document.createElement('nav');
+  nav.className = 'nav';
+  nav.append(buildMenu(model.menu_items));
+
+  // Right side
   const right = document.createElement('div');
   right.className = 'right';
-  rightLinks.forEach((a)=>{ if (a?.href) right.append(a.cloneNode(true)); });
+  (model.actions_links || []).forEach(link => {
+    const a = document.createElement('a');
+    a.textContent = link.label || '';
+    a.href = link.href || '#';
+    right.append(a);
+  });
+
+  // Mobile toggle
+  const btn = document.createElement('button');
+  btn.className = 'nav-toggle';
+  btn.setAttribute('aria-label', 'Menu');
+  btn.innerHTML = '<span></span>';
+  btn.addEventListener('click', () => scope.classList.toggle('open'));
 
   bar.append(brand, btn, nav, right);
   scope.append(bar);
 
-  // highlight current
-  const here = window.location.pathname.replace(/index\.html$/, '');
-  scope.querySelectorAll('a[href]').forEach((a)=>{
-    const href = a.getAttribute('href')?.replace(/index\.html$/, '') || '';
-    if (href === here) a.setAttribute('aria-current','page');
-    try{ const u = new URL(a.href); if (u.origin !== window.location.origin) a.target = '_blank'; }catch{}
+  // Active page highlighting
+  const here = window.location.pathname.replace(/index\\.html$/, '');
+  scope.querySelectorAll('a[href]').forEach(a => {
+    const href = a.getAttribute('href')?.replace(/index\\.html$/, '') || '';
+    if (href === here) a.setAttribute('aria-current', 'page');
+    try {
+      const u = new URL(a.href);
+      if (u.origin !== window.location.origin) a.target = '_blank';
+    } catch {}
   });
 
+  // Styles
   const style = document.createElement('style');
-  style.textContent = buildScopedStyles(uid, sticky);
+  style.textContent = buildScopedStyles(uid, model.sticky);
+
+  block.innerHTML = '';
   block.append(style, scope);
 }
