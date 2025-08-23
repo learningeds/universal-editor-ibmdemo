@@ -1,100 +1,96 @@
 import { getMetadata } from '../../scripts/aem.js';
-// primary nav (first UL)
-const firstList = section.querySelector('ul');
-const nav = document.createElement('nav');
-nav.className = 'nav';
-if (firstList) {
-nav.append(firstList.cloneNode(true));
-firstList.remove();
-} else {
-nav.innerHTML = '<ul></ul>';
-}
 
 
-// right side: whatever is left in the fragment
-const right = document.createElement('div');
-right.className = 'right';
-Array.from(section.children).forEach((el)=> right.append(el));
-
-
-const bar = document.createElement('div');
-bar.className = 'bar';
-bar.append(brand, nav, right);
-
-
-return bar;
-};
-
-
-const buildScopedStyles = (uid) => {
-const s = `[data-uid="${uid}"]`;
-return `
-${s} { background:#000; color:#fff; border-bottom:2px solid #fff; }
-${s} .bar{ max-width:1200px; margin:0 auto; padding:.5rem 1rem; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; }
-${s} .brand{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:inherit; }
-${s} .brand img{ height:28px; width:auto; display:block; }
-${s} .nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap:1.5rem; }
-${s} .nav a{ color:#fff; text-decoration:none; font-weight:600; padding:.75rem .25rem; display:inline-block; position:relative; }
-${s} .nav a:hover{ opacity:.9; }
-${s} .nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:-.5rem; height:3px; background:#d4001a; border-radius:2px; }
-${s} .right{ display:flex; align-items:center; gap:1rem; font-size:.9rem; }
-${s} .right a{ color:#fff; text-decoration:none; opacity:.85; }
-${s} .right a:hover{ opacity:1; }
-${s} .has-sub{ position:relative; }
-${s} .has-sub > ul{ position:absolute; top:100%; left:0; min-width:220px; background:#111; border:1px solid #2a2a2a; display:none; padding:.5rem; border-radius:.5rem; }
-${s} .has-sub:hover > ul, ${s} .has-sub:focus-within > ul{ display:block; }
-${s} .has-sub > a::after{ content:"▾"; margin-left:.35rem; font-size:.8em; }
-
-
-/* basic mobile collapse */
-@media (max-width: 900px){
-${s} .bar{ grid-template-columns: auto auto 1fr; }
-${s} .nav-toggle{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background:transparent; border:1px solid #333; border-radius:.5rem; }
-${s} .nav > ul{ display:none; position:absolute; left:0; right:0; top:100%; background:#000; padding:.5rem 1rem; flex-direction:column; gap:.25rem; border-top:1px solid #222; }
-${s}.open .nav > ul{ display:flex; }
-${s} .right{ display:none; }
-}
-`;
-};
-
-
-export default async function decorate(block){
-const uid = makeUID();
-const navPath = getMetadata('nav') || '/nav';
-const fragment = await loadFragment(navPath);
-if (!fragment) return;
-
-
-block.innerHTML = '';
-
-
+// scope wrapper
 const scope = document.createElement('div');
 scope.dataset.uid = uid;
 scope.className = 'eds-header-nav-bar';
 
 
-const bar = buildFromFragment(fragment);
+const bar = document.createElement('div');
+bar.className = 'bar';
 
 
-// mobile toggle (very small)
+// Read authored JSON from UE-rendered DOM (model fields are emitted as cells)
+// Expect structure: div > div* with text/links/images per model. Safer to use dataset props if present.
+// Fallback to data embedded via block config (if provided via metadata).
+
+
+// BRAND
+const brand = document.createElement('a');
+brand.className = 'brand';
+brand.href = '/';
+// try find an <img> inside the block authored content
+const img = block.querySelector('img');
+if (img) {
+brand.append(img.cloneNode(true));
+} else {
+brand.textContent = 'Home';
+}
+
+
+// MENU (build from any links in first list, otherwise from links in first column)
+const nav = document.createElement('nav');
+nav.className = 'nav';
+const ul = document.createElement('ul');
+
+
+// Try to read JSON authored by UE via script tag (if your project emits data). Otherwise, infer from markup.
+const menuCells = [...block.querySelectorAll(':scope > div > ul')][0]
+|| [...block.querySelectorAll(':scope ul')][0];
+
+
+if (menuCells) {
+// Convert existing UL/LI into our structure
+const clone = menuCells.cloneNode(true);
+// mark li with children
+clone.querySelectorAll('li').forEach((li)=>{
+if (li.querySelector(':scope > ul')) li.classList.add('has-sub');
+});
+ul.replaceWith(clone);
+nav.append(clone);
+} else {
+// fallback: gather direct anchors as menu
+const anchors = [...block.querySelectorAll(':scope a')].slice(0,5);
+anchors.forEach((a)=>{ const li = document.createElement('li'); li.append(a.cloneNode(true)); ul.append(li); });
+nav.append(ul);
+}
+
+
+// RIGHT SIDE (links after the first list)
+const right = document.createElement('div');
+right.className = 'right';
+const afterList = [...block.querySelectorAll(':scope > div > *')];
+afterList.forEach((el)=>{
+if (el.tagName?.toLowerCase() === 'ul') return; // skip main UL
+const a = el.querySelector('a');
+if (a) right.append(a.cloneNode(true));
+});
+
+
+// Mobile button
 const btn = document.createElement('button');
 btn.className = 'nav-toggle';
 btn.setAttribute('aria-label','Menu');
 btn.innerHTML = '<span></span>';
-bar.insertBefore(btn, bar.querySelector('.nav'));
 btn.addEventListener('click', ()=> scope.classList.toggle('open'));
 
 
+bar.append(brand, btn, nav, right);
 scope.append(bar);
 
 
-// scoped styles
+// Active link marking
+const here = window.location.pathname.replace(/index\.html$/, '');
+scope.querySelectorAll('a[href]').forEach((a)=>{
+const href = a.getAttribute('href')?.replace(/index\.html$/, '') || '';
+if (href === here) a.setAttribute('aria-current','page');
+});
+
+
+// Styles
 const style = document.createElement('style');
-style.textContent = buildScopedStyles(uid);
-block.prepend(style);
-
-
-// behaviors
-markActive(scope);
-wireSimpleDropdowns(scope);
+style.textContent = buildScopedStyles(uid, sticky);
+block.innerHTML = '';
+block.append(style, scope);
 }
