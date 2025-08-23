@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "http://localhost:4502/content/universal-editor-ibmdemo"
+    url: "https://author-p131558-e1552862.adobeaemcloud.com/bin/franklin.delivery/learningeds/universal-editor-ibmdemo/main"
     type: "markup"
     suffix: ".html"
