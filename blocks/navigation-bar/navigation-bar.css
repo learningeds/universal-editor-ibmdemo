@@ -11,22 +11,24 @@
     width: 235px;
 }
 
-/* Row Top: hover state in red */
-.navigation-bar .row.top a:hover {
-  color: #d4001a; /* brand red */
+/* Remove the old injected underline (::after) */
+.navigation-bar .row.main nav a[aria-current="page"]::after {
+  display: none !important;
 }
 
-/* Row Main: default red text */
+/* Default state: white text, no underline */
 .navigation-bar .row.main nav a {
-  color: #d4001a;
+  color: #fff;
   font-weight: 700;
   text-decoration: none;
-  padding-bottom: 0.5rem;
-  border-bottom: 3px solid transparent; /* placeholder for underline */
+  padding-bottom: .6rem;
+  border-bottom: 3px solid transparent; /* invisible border for alignment */
+  transition: color .2s ease, border-color .2s ease;
 }
 
-/* Row Main: hover + active states with red underline */
+/* Hover + Active: red text and red underline */
 .navigation-bar .row.main nav a:hover,
 .navigation-bar .row.main nav a[aria-current="page"] {
-  border-bottom-color: #d4001a; /* matches nav bar border */
+  color: #d4001a;
+  border-bottom-color: #d4001a;
 }
