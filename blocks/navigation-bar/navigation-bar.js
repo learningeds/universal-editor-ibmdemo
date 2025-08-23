@@ -32,7 +32,7 @@ function styles(uid, sticky) {
   return `
 ${s}{ background:#000; color:#fff; ${sticky ? "position:sticky;top:0;z-index:100;" : ""} }
 ${s} .wrap{ width:100%; margin:0; border-bottom:4px solid #fff; }
-${s} .bar{ display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:.5rem 1rem; align-items:center; }
+${s} .bar{ display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:.5rem .5rem 0rem .5rem; align-items:center; }
 ${s} .brand{ text-decoration:none; color:inherit; display:flex; align-items:center; gap:.5rem; }
 ${s} .brand img{ width:auto; display:block; }
 
