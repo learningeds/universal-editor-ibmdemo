@@ -1,7 +1,6 @@
 .navigation-bar-wrapper{
     margin: 0 !important;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    font-size:50px;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
 }
