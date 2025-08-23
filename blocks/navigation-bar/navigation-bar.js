@@ -99,7 +99,7 @@ export default function decorate(block) {
 
     // brand
     const brand = document.createElement("a");
-    brand.className = "brand";
+    brand.className = "brand brand-cp";
     brand.href = NAV_CONFIG.brand.href || "/";
     if (NAV_CONFIG.brand.logo) {
       const img = document.createElement("img");
