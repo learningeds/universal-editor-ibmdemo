@@ -69,6 +69,10 @@
     --heading-font-size-xs: 18px;
   }
 }
+body > header:empty,
+body > footer:empty {
+  display: none !important;
+}
 
 body {
   display: none;
