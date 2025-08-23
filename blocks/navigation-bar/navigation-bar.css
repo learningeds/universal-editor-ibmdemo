@@ -11,6 +11,9 @@
     width: 235px;
 }
 
+.navigation-bar .right{
+    font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
+}
 /* Reset links */
 .navigation-bar .row.main nav a {
   color: #fff;
@@ -27,7 +30,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -2px;               /* align with the nav bar border */
+  bottom: -4px;               /* align with the nav bar border */
   height: 3px;
   background: transparent;
   border-radius: 2px;
