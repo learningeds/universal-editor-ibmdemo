@@ -231,55 +231,5 @@
         "valueType": "string"
       }
     ]
-  },
-  {
-    "id": "navigation-bar",
-    "fields": [
-      { "component": "tab", "label": "Brand", "name": "brandTab" },
-      { "component": "reference", "name": "brand_logo", "label": "Logo Image", "valueType": "string" },
-      { "component": "text", "name": "brand_logoAlt", "label": "Logo Alt Text", "valueType": "string" },
-      { "component": "aem-content", "name": "brand_link", "label": "Logo Link", "valueType": "string" },
-
-      { "component": "tab", "label": "Fragment", "name": "fragTab" },
-      { "component": "aem-content", "name": "fragment_path", "label": "Header Fragment Path (e.g. /header)", "valueType": "string" },
-
-      { "component": "tab", "label": "Top Row (right)", "name": "topTab" },
-      {
-        "component": "container",
-        "name": "top_links",
-        "label": "Top Right Links",
-        "multi": true,
-        "fields": [
-          { "component": "text", "name": "label", "label": "Label", "valueType": "string" },
-          { "component": "aem-content", "name": "href", "label": "Link", "valueType": "string" }
-        ]
-      },
-
-      { "component": "tab", "label": "Main Row (right)", "name": "mainTab" },
-      {
-        "component": "container",
-        "name": "main_menu",
-        "label": "Main Menu Items",
-        "multi": true,
-        "fields": [
-          { "component": "text", "name": "label", "label": "Label", "valueType": "string", "required": true },
-          { "component": "aem-content", "name": "href", "label": "Link", "valueType": "string" },
-          {
-            "component": "container",
-            "name": "children",
-            "label": "Dropdown Items (optional)",
-            "multi": true,
-            "fields": [
-              { "component": "text", "name": "label", "label": "Child Label", "valueType": "string" },
-              { "component": "aem-content", "name": "href", "label": "Child Link", "valueType": "string" }
-            ]
-          }
-        ]
-      },
-
-      { "component": "tab", "label": "Options", "name": "optTab" },
-      { "component": "boolean", "name": "sticky", "label": "Sticky (fixed top)", "valueType": "boolean" }
-    ]
   }
-
 ]

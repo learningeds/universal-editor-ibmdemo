@@ -1,56 +1,49 @@
-// Navigation Bar (Header) — EDS + Universal Editor
-// - Logo left; two rows on the right: Top links + Main menu
-// - 100% width, UID-scoped styles, optional sticky
-// - Reads model from block.blockModel or <script type="application/json"> fallback
-// - If fragment_path is set, loads model from that page's .json
+// Simple Navigation Bar (no UE model, no fragments)
+// Logo left; two rows on the right: top utility links + main menu.
+// Full width, black theme, red active underline. Mobile toggle included.
 
-const makeUID = (p = 'eds-nav') => `${p}-${crypto.randomUUID()}`;
+const NAV_CONFIG = {
+  brand: {
+    logo: "/icons/cp-logo.svg", // ← change to your logo URL
+    alt: "Chicago Pneumatic",
+    href: "/",
+  },
+  topLinks: [
+    { label: "🔍", href: "/search" },
+    { label: "Back to cp.com", href: "https://cp.com" },
+    { label: "Find a dealer", href: "/dealer" },
+    { label: "Markets", href: "/markets" }, // (use children in main menu if you want dropdowns)
+  ],
+  mainMenu: [
+    { label: "Products", href: "/products" },
+    { label: "Parts and Lubricants", href: "/parts" },
+    { label: "Expert Corner", href: "/experts" },
+    { label: "This is Chicago Pneumatic", href: "/about" },
+    // Example with dropdown:
+    // {
+    //   label: "Markets",
+    //   href: "/markets",
+    //   children: [
+    //     { label: "Automotive", href: "/markets/auto" },
+    //     { label: "Manufacturing", href: "/markets/mfg" },
+    //   ],
+    // },
+  ],
+  sticky: false, // set true if you want it fixed to top
+};
 
-// Prefer UE's injected model, fallback to embedded <script> JSON
-function getLocalModel(block) {
-  if (block.blockModel) return block.blockModel;
-  const script = block.querySelector('script[type="application/json"]');
-  if (script) {
-    try { return JSON.parse(script.textContent); } catch (e) { console.warn('Invalid block JSON', e); }
-  }
-  return {};
-}
+const makeUID = (p = "eds-nav") => `${p}-${crypto.randomUUID()}`;
 
-// Fetch model from a fragment page (e.g., /header.json) and return the first matching block model
-async function getFragmentModel(path, blockId = 'navigation-bar') {
-  try {
-    const url = `${path.replace(/\.html$/, '')}.json`;
-    const res = await fetch(url, { credentials: 'same-origin' });
-    if (!res.ok) return null;
-    const page = await res.json();
-
-    // Walk blocks/sections and find the first matching block id
-    const q = [];
-    if (Array.isArray(page.blocks)) q.push(...page.blocks);
-    if (Array.isArray(page.sections)) q.push(...page.sections);
-
-    while (q.length) {
-      const node = q.shift();
-      if (node?.id === blockId && node.blockModel) return node.blockModel;
-      if (Array.isArray(node?.blocks)) q.push(...node.blocks);
-      if (Array.isArray(node?.sections)) q.push(...node.sections);
-    }
-  } catch (e) {
-    console.warn('Fragment fetch failed:', e);
-  }
-  return null;
-}
-
-function styles(uid, sticky) {
+function css(uid, sticky) {
   const s = `[data-uid="${uid}"]`;
   return `
-${s}{ background:#000; color:#fff; ${sticky ? 'position:sticky;top:0;z-index:100;' : ''} }
+${s}{ background:#000; color:#fff; ${sticky ? "position:sticky;top:0;z-index:100;" : ""} }
 ${s} .wrap{ width:100%; margin:0; border-bottom:2px solid #fff; }
 ${s} .bar{ display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:.5rem 1rem; align-items:center; }
 ${s} .brand{ text-decoration:none; color:inherit; display:flex; align-items:center; gap:.5rem; }
 ${s} .brand img{ height:32px; width:auto; display:block; }
 
-/* Right side: two rows stacked and right-aligned */
+/* Right side: two rows aligned to the right */
 ${s} .right{ display:grid; grid-template-rows:auto auto; justify-items:end; align-items:center; gap:.25rem; width:100%; }
 ${s} .row.top{ display:flex; gap:1.25rem; align-items:center; font-size:.9rem; }
 ${s} .row.top a{ color:#fff; text-decoration:none; opacity:.9; font-weight:600; }
@@ -60,7 +53,7 @@ ${s} .row.main nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap
 ${s} .row.main nav a{ color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; padding:.6rem .25rem; position:relative; display:inline-block; }
 ${s} .row.main nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:-.45rem; height:3px; background:#d4001a; border-radius:2px; }
 
-/* Simple hover dropdown if children exist */
+/* Simple hover dropdown for any item with children */
 ${s} li.has-sub{ position:relative; }
 ${s} li.has-sub > ul{ position:absolute; top:100%; left:0; min-width:220px; background:#111; border:1px solid #2a2a2a; display:none; padding:.5rem; border-radius:.5rem; }
 ${s} li.has-sub:hover > ul, ${s} li.has-sub:focus-within > ul{ display:block; }
@@ -80,25 +73,25 @@ ${s} .toggle{ display:none; }
 }
 
 function buildMenu(items = []) {
-  const ul = document.createElement('ul');
+  const ul = document.createElement("ul");
   items.forEach((item) => {
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.textContent = item.label || '';
-    a.href = item.href || '#';
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = item.label || "";
+    a.href = item.href || "#";
     li.append(a);
 
     if (Array.isArray(item.children) && item.children.length) {
-      const sub = document.createElement('ul');
+      const sub = document.createElement("ul");
       item.children.forEach((c) => {
-        const cli = document.createElement('li');
-        const ca = document.createElement('a');
-        ca.textContent = c.label || '';
-        ca.href = c.href || '#';
+        const cli = document.createElement("li");
+        const ca = document.createElement("a");
+        ca.textContent = c.label || "";
+        ca.href = c.href || "#";
         cli.append(ca);
         sub.append(cli);
       });
-      li.classList.add('has-sub');
+      li.classList.add("has-sub");
       li.append(sub);
     }
     ul.append(li);
@@ -107,76 +100,65 @@ function buildMenu(items = []) {
 }
 
 function applyActive(scope) {
-  const here = window.location.pathname.replace(/index\.html$/, '');
+  const here = window.location.pathname.replace(/index\.html$/, "");
   scope.querySelectorAll('a[href]').forEach((a) => {
-    const href = a.getAttribute('href')?.replace(/index\.html$/, '') || '';
-    if (href === here) a.setAttribute('aria-current', 'page');
-    try { const u = new URL(a.href); if (u.origin !== window.location.origin) a.target = '_blank'; } catch {}
+    const href = a.getAttribute("href")?.replace(/index\.html$/, "") || "";
+    if (href === here) a.setAttribute("aria-current", "page");
+    try { const u = new URL(a.href); if (u.origin !== window.location.origin) a.target = "_blank"; } catch {}
   });
 }
 
-export default async function decorate(block) {
-  // Resolve model: fragment (if set) takes precedence
-  const local = getLocalModel(block);
-  const model = local.fragment_path ? (await getFragmentModel(local.fragment_path)) || local : local;
-
-  // Debug to help when the bar appears empty
-  console.log('[navigation-bar] model:', model);
-  const hasBrand = !!(model.brand_logo || model.brand_link);
-  const hasTop = Array.isArray(model.top_links) && model.top_links.length > 0;
-  const hasMain = Array.isArray(model.main_menu) && model.main_menu.length > 0;
-
+export default function decorate(block) {
   const uid = makeUID();
-  const wrap = document.createElement('div');
+  const wrap = document.createElement("div");
   wrap.dataset.uid = uid;
-  wrap.className = 'navigation-bar';
+  wrap.className = "navigation-bar";
 
-  const container = document.createElement('div');
-  container.className = 'wrap';
+  const container = document.createElement("div");
+  container.className = "wrap";
 
-  const bar = document.createElement('div');
-  bar.className = 'bar';
+  const bar = document.createElement("div");
+  bar.className = "bar";
 
   // Brand (left)
-  const brand = document.createElement('a');
-  brand.className = 'brand';
-  brand.href = model.brand_link || '/';
-  if (model.brand_logo) {
-    const img = document.createElement('img');
-    img.src = model.brand_logo;
-    img.alt = model.brand_logoAlt || '';
+  const brand = document.createElement("a");
+  brand.className = "brand";
+  brand.href = NAV_CONFIG.brand.href || "/";
+  if (NAV_CONFIG.brand.logo) {
+    const img = document.createElement("img");
+    img.src = NAV_CONFIG.brand.logo;
+    img.alt = NAV_CONFIG.brand.alt || "";
     brand.append(img);
-  } else if (model.brand_logoAlt) {
-    // Fallback text only if alt provided (useful while wiring data)
-    brand.textContent = model.brand_logoAlt;
+  } else if (NAV_CONFIG.brand.alt) {
+    brand.textContent = NAV_CONFIG.brand.alt;
   }
 
   // Mobile toggle
-  const toggle = document.createElement('button');
-  toggle.className = 'toggle';
-  toggle.setAttribute('aria-label', 'Menu');
-  toggle.innerHTML = '<span></span>';
-  toggle.addEventListener('click', () => wrap.classList.toggle('open'));
+  const toggle = document.createElement("button");
+  toggle.className = "toggle";
+  toggle.setAttribute("aria-label", "Menu");
+  toggle.innerHTML = "<span></span>";
+  toggle.addEventListener("click", () => wrap.classList.toggle("open"));
 
   // Right (two rows)
-  const right = document.createElement('div');
-  right.className = 'right';
+  const right = document.createElement("div");
+  right.className = "right";
 
-  // Row 1: top links (right-aligned)
-  const topRow = document.createElement('div');
-  topRow.className = 'row top';
-  (model.top_links || []).forEach((lnk) => {
-    const a = document.createElement('a');
-    a.textContent = lnk.label || '';
-    a.href = lnk.href || '#';
+  // Row 1: top links
+  const topRow = document.createElement("div");
+  topRow.className = "row top";
+  (NAV_CONFIG.topLinks || []).forEach((lnk) => {
+    const a = document.createElement("a");
+    a.textContent = lnk.label || "";
+    a.href = lnk.href || "#";
     topRow.append(a);
   });
 
-  // Row 2: main menu (right-aligned)
-  const mainRow = document.createElement('div');
-  mainRow.className = 'row main';
-  const nav = document.createElement('nav');
-  nav.append(buildMenu(model.main_menu || []));
+  // Row 2: main menu
+  const mainRow = document.createElement("div");
+  mainRow.className = "row main";
+  const nav = document.createElement("nav");
+  nav.append(buildMenu(NAV_CONFIG.mainMenu || []));
   mainRow.append(nav);
 
   right.append(topRow, mainRow);
@@ -187,21 +169,12 @@ export default async function decorate(block) {
   wrap.append(container);
 
   // Styles
-  const style = document.createElement('style');
-  style.textContent = styles(uid, !!model.sticky);
-
-  // Optional hint if no data (to avoid a mysterious black bar)
-  let hint;
-  if (!hasBrand && !hasTop && !hasMain) {
-    hint = document.createElement('div');
-    hint.style.cssText = 'padding:.5rem 1rem;color:#bbb;font-size:.9rem;';
-    hint.textContent = 'Configure Navigation Bar: set Fragment Path (e.g., /header) or add Brand/Top/Main items in the side panel.';
-  }
+  const style = document.createElement("style");
+  style.textContent = css(uid, !!NAV_CONFIG.sticky);
 
   // Mount
-  block.innerHTML = '';
+  block.innerHTML = "";
   block.append(style, wrap);
-  if (hint) wrap.append(hint);
 
   // Behavior
   applyActive(wrap);
