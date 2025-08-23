@@ -1,15 +1,13 @@
-// Header Nav Bar block for Edge Delivery Services + Universal Editor
-// Reads authored data from block.blockModel instead of DOM
+// Header Nav Bar block for EDS + Universal Editor
+// Renders from block.blockModel (UE fields)
 
-const makeUID = (prefix = 'eds-hnb') => {
-  return `${prefix}-${crypto.randomUUID()}`;
-};
+const makeUID = (prefix = 'eds-hnb') => `${prefix}-${crypto.randomUUID()}`;
 
 function buildScopedStyles(uid, sticky) {
   const s = `[data-uid="${uid}"]`;
   return `
 ${s}{ background:#000; color:#fff; ${sticky ? 'position:sticky;top:0;z-index:100;' : ''} }
-${s} .bar{ max-width:1200px; margin:0 auto; padding:.625rem 1rem;
+${s} .bar{ width:100%; margin:0; padding:.625rem 1rem;
   display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; border-bottom:2px solid #fff; }
 ${s} .brand{ display:flex; align-items:center; gap:.5rem; text-decoration:none; color:inherit; }
 ${s} .brand img{ height:32px; width:auto; display:block; }
@@ -62,7 +60,7 @@ function buildMenu(menuItems = []) {
 }
 
 export default function decorate(block) {
-  const model = block.blockModel || {}; // UE injects this
+  const model = block.blockModel || {}; 
   const uid = makeUID();
   const scope = document.createElement('div');
   scope.dataset.uid = uid;
@@ -84,12 +82,12 @@ export default function decorate(block) {
     brand.textContent = 'Home';
   }
 
-  // Menu
+  // Nav
   const nav = document.createElement('nav');
   nav.className = 'nav';
   nav.append(buildMenu(model.menu_items));
 
-  // Right side
+  // Right side links
   const right = document.createElement('div');
   right.className = 'right';
   (model.actions_links || []).forEach(link => {
@@ -109,7 +107,7 @@ export default function decorate(block) {
   bar.append(brand, btn, nav, right);
   scope.append(bar);
 
-  // Active page highlighting
+  // Highlight active link
   const here = window.location.pathname.replace(/index\\.html$/, '');
   scope.querySelectorAll('a[href]').forEach(a => {
     const href = a.getAttribute('href')?.replace(/index\\.html$/, '') || '';
@@ -120,7 +118,7 @@ export default function decorate(block) {
     } catch {}
   });
 
-  // Styles
+  // Scoped styles
   const style = document.createElement('style');
   style.textContent = buildScopedStyles(uid, model.sticky);
 
