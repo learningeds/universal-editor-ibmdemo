@@ -1,7 +1,24 @@
 // Header Nav Bar block for EDS + Universal Editor
-// Renders from block.blockModel (UE fields)
+// Reads authored data from block.blockModel or embedded JSON
 
 const makeUID = (prefix = 'eds-hnb') => `${prefix}-${crypto.randomUUID()}`;
+
+function getBlockModel(block) {
+  // Case 1: injected by UE runtime
+  if (block.blockModel) return block.blockModel;
+
+  // Case 2: embedded <script type="application/json">
+  const script = block.querySelector('script[type="application/json"]');
+  if (script) {
+    try {
+      return JSON.parse(script.textContent);
+    } catch (e) {
+      console.warn('Invalid block JSON', e);
+    }
+  }
+
+  return {};
+}
 
 function buildScopedStyles(uid, sticky) {
   const s = `[data-uid="${uid}"]`;
@@ -60,7 +77,7 @@ function buildMenu(menuItems = []) {
 }
 
 export default function decorate(block) {
-  const model = block.blockModel || {}; 
+  const model = getBlockModel(block); // ✅ read authored UE data
   const uid = makeUID();
   const scope = document.createElement('div');
   scope.dataset.uid = uid;
