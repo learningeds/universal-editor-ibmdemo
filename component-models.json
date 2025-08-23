@@ -214,5 +214,29 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "nav-header",
+    "fields": [
+      {
+        "component": "image",
+        "name": "logo",
+        "label": "Logo",
+        "valueType": "string",
+        "value": "/default-logo.png"
+      },
+      {
+        "component": "multifield",
+        "name": "navItems",
+        "label": "Navigation Items",
+        "valueType": "string[]",
+        "value": [
+          "Home",
+          "About",
+          "Services",
+          "Contact"
+        ]
+      }
+    ]
   }
 ]

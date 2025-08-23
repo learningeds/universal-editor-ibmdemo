@@ -1,0 +1,30 @@
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #333;
+  color: #fff;
+}
+
+.nav-header .logo {
+  width: 100px;
+  height: 50px;
+  margin-right: 16px;
+}
+
+.nav-header .nav-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-header .nav-items li {
+  margin-right: 16px;
+}
+
+.nav-header .nav-items a {
+  color: #fff;
+  text-decoration: none;
+}
