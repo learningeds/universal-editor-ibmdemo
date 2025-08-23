@@ -30,46 +30,12 @@
       {
         "component": "reference",
         "name": "logo",
-        "label": "Logo",
-        "multi": false
+        "label": "Logo"
       },
       {
         "component": "text",
         "name": "altText",
         "label": "Logo Alt Text"
-      },
-      {
-        "component": "multiselect",
-        "name": "menuItems",
-        "label": "Menu Items",
-        "options": [
-          {
-            "name": "Home",
-            "value": "home"
-          },
-          {
-            "name": "About",
-            "value": "about"
-          },
-          {
-            "name": "Services",
-            "value": "services"
-          },
-          {
-            "name": "Contact",
-            "value": "contact"
-          }
-        ]
-      },
-      {
-        "component": "aem-content",
-        "name": "ctaLink",
-        "label": "CTA Link"
-      },
-      {
-        "component": "text",
-        "name": "ctaText",
-        "label": "CTA Text"
       }
     ]
   },
