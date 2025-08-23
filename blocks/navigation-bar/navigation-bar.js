@@ -3,7 +3,7 @@
 
 const NAV_CONFIG = {
   brand: {
-    logo: "/icons/cp-logo.svg", // <-- change to your logo URL
+    logo: "/icons/cp-logo.png", // <-- change to your logo URL
     alt: "Chicago Pneumatic",
     href: "/",
   },
