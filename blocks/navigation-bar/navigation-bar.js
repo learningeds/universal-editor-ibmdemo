@@ -42,7 +42,7 @@ ${s} .row.top{ display:flex; gap:1.25rem; align-items:center; font-size:.9rem; }
 ${s} .row.top a{ color:#fff; text-decoration:none; opacity:.9; font-weight:600; }
 ${s} .row.top a:hover{ opacity:1; }
 
-${s} .row.main nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap:2rem; }
+${s} .row.main nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap:3.2rem; }
 ${s} .row.main nav a{ color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; padding:.6rem .25rem; position:relative; display:inline-block; }
 ${s} .row.main nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:-.45rem; height:3px; background:#d4001a; border-radius:2px; }
 

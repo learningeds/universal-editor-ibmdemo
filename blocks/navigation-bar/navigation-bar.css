@@ -14,6 +14,11 @@
 .navigation-bar .right{
     font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
+
+.navigation-bar .row.top a:hover {
+  color: #d4001a; /* brand red */
+}
+
 /* Reset links */
 .navigation-bar .row.main nav a {
   color: #fff;
@@ -28,12 +33,11 @@
 .navigation-bar .row.main nav a::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
+  left: -16px;
+  right: -16px;
   bottom: -4px;               /* align with the nav bar border */
-  height: 3px;
-  background: transparent;
-  border-radius: 2px;
+  height: 4px;
+  background: transparent;;
   transition: background .2s ease;
 }
 
