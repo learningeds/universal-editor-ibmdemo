@@ -23,6 +23,57 @@
       }
     ]
   },
+
+  {
+    "id": "nav-header-cc",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "logo",
+        "label": "Logo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "altText",
+        "label": "Logo Alt Text"
+      },
+      {
+        "component": "multiselect",
+        "name": "menuItems",
+        "label": "Menu Items",
+        "options": [
+          {
+            "name": "Home",
+            "value": "home"
+          },
+          {
+            "name": "About",
+            "value": "about"
+          },
+          {
+            "name": "Services",
+            "value": "services"
+          },
+          {
+            "name": "Contact",
+            "value": "contact"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+
   {
     "id": "image",
     "fields": [
@@ -212,30 +263,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "nav-header",
-    "fields": [
-      {
-        "component": "image",
-        "name": "logo",
-        "label": "Logo",
-        "valueType": "string",
-        "value": "/default-logo.png"
-      },
-      {
-        "component": "multifield",
-        "name": "navItems",
-        "label": "Navigation Items",
-        "valueType": "string[]",
-        "value": [
-          "Home",
-          "About",
-          "Services",
-          "Contact"
-        ]
       }
     ]
   }
