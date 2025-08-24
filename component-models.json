@@ -169,6 +169,10 @@
           {
             "name": "Search Bar cp",
             "value": "search-bar-cp"
+          },
+          {
+            "name": "Horizontal Rule cp",
+            "value": "horizontal-rule-cp"
           }
         ]
       }
