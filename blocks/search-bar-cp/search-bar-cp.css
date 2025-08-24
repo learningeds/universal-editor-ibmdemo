@@ -8,9 +8,10 @@
 /* Title */
 .search-bar-cp-wrapper .search-title {
   margin-bottom: 20px;
-  font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 800;
   color: #000;
+  font-size:28px;
+  font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
 
 /* Search box */
