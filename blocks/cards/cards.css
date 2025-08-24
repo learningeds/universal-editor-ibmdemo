@@ -111,3 +111,6 @@
     margin:0 !important;
 }
 
+.section.grid-cards-cp-v2 .cards-wrapper .cards.block li{
+    border:none;
+}
