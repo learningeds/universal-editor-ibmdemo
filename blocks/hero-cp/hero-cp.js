@@ -12,7 +12,8 @@ const HERO_CONFIG = {
     playsinline: true // REQUIRED for autoplay on iOS
   },
   layout: {
-    height: "70vh",   // ~70% of the viewport; tweak as needed
+    height: "70lvh",
+    height:"70vh",// ~70% of the viewport; tweak as needed
     minHeight: 420,   // px guard for short viewports
     gradient: true    // left-side red gradient overlay
   },
