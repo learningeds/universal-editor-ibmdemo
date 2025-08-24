@@ -32,11 +32,12 @@
 .section.grid-cards-cp {
   background: #eee;   /* light gray band as in screenshot */
   margin-top:2rem;
-  padding: 35px 0 15px 0;
+  padding: 25px 0 15px 0;
 }
 .section.grid-cards-cp .default-content-wrapper h3 {
   text-align: center;
-  margin: 0 0 20px;
+  margin: 0 0 15px;
+  font-size: 24px;
   font-weight: 600;
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
