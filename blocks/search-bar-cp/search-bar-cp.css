@@ -18,20 +18,19 @@
 .search-bar-cp-wrapper .search-box {
   display: inline-flex;
   align-items: center;
-  border: 2px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #bbb;
   padding: 0 12px;
   background: #fff;
-  max-width: 600px;
+  max-width: 60%;
   width: 100%;
 }
 
 .search-bar-cp-wrapper .search-box input {
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 1.2rem;
   flex: 1;
-  padding: 12px;
+  padding: 4px;
 }
 
 .search-bar-cp-wrapper .search-box button {
