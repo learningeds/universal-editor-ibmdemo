@@ -91,7 +91,6 @@
  .section.fifty-50-col-images .columns.block.columns-2-cols > div > div {
    position: relative;
    overflow: hidden;
-   border-radius: 8px;
    height: clamp(320px, 34vw, 460px); /* responsive, no aspect-ratio */
    background: #000;
  }
@@ -130,10 +129,10 @@
    margin: 0;
  }
 
- /* 5) Stack on small screens */
- @media (max-width: 900px) {
-   .section.fifty-50-col-images .columns.block.columns-2-cols > div {
-     grid-template-columns: 1fr;
-     gap: 18px;
-   }
- }
+.fifty-50-col-images .columns-2-cols p{
+  margin-top:-2rem
+}
+
+.fifty-50-col-images .columns-wrapper{
+  padding:0 !important;
+}
