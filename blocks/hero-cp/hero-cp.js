@@ -106,17 +106,25 @@ ${s} .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .65rem 1rem;
-  border-radius: .5rem;
+  padding: .65rem 1.25rem;
+  border-radius: 0.25rem;        /* squared corners like pic */
   font-weight: 700;
   text-decoration: none;
-  color: #fff;
-  background: #d4001a;
-  border: 2px solid #d4001a;
-  transition: transform .06s ease, background .2s ease, color .2s ease;
+  color: #fff;                   /* white text */
+  background: transparent;       /* no fill */
+  border: 2px solid #fff;        /* white border */
+  transition: all .2s ease;
 }
-${s} .cta:hover { background: #ea002c; border-color: #ea002c; }
-${s} .cta:active { transform: translateY(1px); }
+
+${s} .cta:hover {
+  background: #fff;              /* on hover → invert */
+  color: #d4001a;                /* red text */
+  border-color: #fff;
+}
+
+${s} .cta:active {
+  transform: translateY(1px);
+}
 
 /* top/bottom white hairline to match your header line */
 ${s}::after {
