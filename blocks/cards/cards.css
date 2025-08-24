@@ -245,7 +245,6 @@
 /* ========= Body ========= */
 .section.grid-cards-cp-v3 .cards-card-body {
   border-top: 1px solid #e7e7e7;
-  padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -263,7 +262,7 @@
 
 .section.grid-cards-cp-v3 .cards-card-body .button-container{
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
-  font-size:1rem;
+  font-size:1rem !important;
 }
 
 .section.grid-cards-cp-v3 .cards-card-body p {
