@@ -246,6 +246,7 @@
 .section.grid-cards-cp-v3 .cards-card-body {
   border-top: 1px solid #e7e7e7;
   display: flex;
+  padding-left:18px;
   flex-direction: column;
   gap: 10px;
   flex: 1 1 auto;
@@ -260,9 +261,9 @@
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
 
-.section.grid-cards-cp-v3 .cards-card-body .button-container{
+.section.grid-cards-cp-v3 .cards-card-body .button-container a{
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
-  font-size:1rem !important;
+  font-size:1.3rem !important;
 }
 
 .section.grid-cards-cp-v3 .cards-card-body p {
@@ -282,7 +283,7 @@
   color: #111 !important;
   border: 2px solid #111;
   padding: 12px 16px;
-  border-radius: 6px;
+  border-radius: 0;
   font-weight: 700;
   line-height: 1.1;
   box-sizing: border-box;
