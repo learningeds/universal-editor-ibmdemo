@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "hr-line"
     ]
   },
   {
@@ -18,8 +19,7 @@
       "fragment",
       "navigation-bar",
       "hero-cp",
-      "search-bar-cp",
-      "hr-line"
+      "search-bar-cp"
     ]
   },
   {
