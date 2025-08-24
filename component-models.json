@@ -153,6 +153,10 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "50-50 cp Section",
+            "value": "50-50-cp-Section"
           }
         ]
       }
