@@ -1,12 +1,13 @@
 function render(block) {
   const style = block.dataset.style || "default";
-  const thickness = Number(block.dataset.thickness || 2);
+  const thickness = Number(block.dataset.thickness || 1);
   const bleed = (block.dataset.bleed || "false") === "true";
 
   // build/replace hr
   const hr = document.createElement("hr");
   hr.className = `hr-line hr-line-${style}${bleed ? " hr-line--bleed" : ""}`;
   hr.style.borderTopWidth = `${thickness}px`;
+  hr.style.borderColor = "#ccc";
 
   block.innerHTML = "";
   block.appendChild(hr);
