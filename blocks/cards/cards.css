@@ -122,9 +122,9 @@
 
 .section.grid-cards-cp-v2 .cards-wrapper .cards-card-body{
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: bolder;
 }
 
 .section.grid-cards-cp-v2 .cards-wrapper .cards.block ul{
