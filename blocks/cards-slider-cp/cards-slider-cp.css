@@ -58,7 +58,7 @@
 .section.cards-slider-cp .cards-card-image img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: contain;           /* keep image without cropping */
+  object-fit: cover;           
   display: block;
   background: #000;
 }
