@@ -405,7 +405,7 @@
         "id": "note",
         "label": "Note",
         "type": "multiline",
-        "default": "This slider’s content is hardcoded in /blocks/cards-slider-cp/cards-slider-cp.js"
+        "default": "⚠️ This slider’s content is hardcoded in /blocks/cards-slider-cp/cards-slider-cp.js"
       }
     ]
   }

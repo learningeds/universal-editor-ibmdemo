@@ -208,7 +208,7 @@
             }
           }
         },
-        ,{
+        {
           "title": "Horizontal Rule",
           "id": "hr-line-cp",
           "plugins": {
