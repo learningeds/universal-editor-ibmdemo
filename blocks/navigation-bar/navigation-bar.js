@@ -8,7 +8,7 @@ const NAV_CONFIG = {
     href: "/",
   },
   topLinks: [
-    { label: "🔍", href: "/search" },
+    { src: "https://compressors.cp.com/etc.clientlibs/settings/wcm/designs/cp/clientlib-preloaded/resources/img/svg/search-inverted--sprite.svg", alt: "Search", href: "/search" },
     { label: "Back to cp.com", href: "https://cp.com" },
     { label: "Find a dealer", href: "/dealer" },
     { label: "Markets", href: "/markets" },
