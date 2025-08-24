@@ -121,7 +121,11 @@
     font-weight: bolder;
 }
 
-
+.section.grid-cards-cp-v2 .cards-wrapper .cards.block ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 24px;
+}
 
 /* 2×2 grid */
 .section.quard-cards-cp .cards.block ul{
