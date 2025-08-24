@@ -34,8 +34,8 @@ function css(u, cfg) {
 ${s} {
   position: relative;
   width: 100%;
-  height: 90vh;   /* fallback for old browsers */
-  height: 90lvh;  /* modern browsers: ignore DevTools shrink */
+  height: 85vh;   /* fallback for old browsers */
+  height: 85lvh;  /* modern browsers: ignore DevTools shrink */
   min-height: ${cfg.layout.minHeight}px;
   color: #fff;
   overflow: hidden;
@@ -136,7 +136,7 @@ export default function decorate(block) {
   // root
   const root = document.createElement("section");
   function lockHeroHeight() {
-    const h = window.innerHeight * 0.9; // 70% of current screen height in pixels
+    const h = window.innerHeight * 0.85; // 70% of current screen height in pixels
     root.style.height = `${h}px`;       // force a pixel height
   }
 
