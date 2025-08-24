@@ -43,29 +43,41 @@
     padding-top: 1rem;
 }
 
-/* 75/25 for exactly this section's 2-column block */
-.section.fifty-50-cp-section .columns.block.columns-2-cols {
-  display: flex;            /* columns uses flex; reinforce here */
-  gap: 24px;                /* keep your spacing */
-  align-items: stretch;
+/* Only affect the 2-column block inside this section */
+.section.fifty-50-cp-section .columns.block.columns-2-cols{
+  display:flex;           /* ensure flex container */
+  flex-wrap:nowrap;       /* keep two columns on one row */
+  gap:24px;               /* keep your spacing */
+  align-items:stretch;
 }
 
-/* first column (text) = 75% */
-.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(1) {
-  flex: 0 0 75%;
-  max-width: 75%;
+/* reset the default 50/50 flex the block adds */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div{
+  flex:0 0 auto !important;   /* stop flex:1 from the core CSS */
+  max-width:none !important;
 }
 
-/* second column (image) = 25% */
-.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) {
-  flex: 0 0 25%;
-  max-width: 25%;
+/* Text column = 75% */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(1){
+  flex-basis:75% !important;
+  width:75% !important;
+  max-width:75% !important;
 }
 
-/* make images behave nicely in the 25% column */
-.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) img {
-  display: block;
-  width: 100%;
-  height: auto;            /* or height:100%; object-fit:cover; if you prefer crop */
+/* Image column = 25% */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2){
+  flex-basis:25% !important;
+  width:25% !important;
+  max-width:25% !important;
+  align-self:stretch; /* make it match text height if needed */
+}
+
+/* Make the image behave nicely in its narrow column */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) picture,
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;  /* or 'contain' if you don't want cropping */
 }
 
