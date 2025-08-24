@@ -5,12 +5,12 @@ const HEADING = "A Global Network"; // change or read from UE via data-heading i
 
 const SLIDES = [
   {
-    img: { src: "/media/slider-1.webp", alt: "Global network" },
+    img: { src: "https://atlascopco.scene7.com/is/image/atlascopco/CP-globe1?$landscape1600$", alt: "Global network" },
     // show only link below image:
     cta: { label: "Find a Dealer", href: "/dealer" }
   },
   {
-    img: { src: "/media/slider-2.webp", alt: "CP brand" },
+    img: { src: "https://atlascopco.scene7.com/is/image/atlascopco/CP-polaroid-pictures?$landscape1600$&fmt=png-alpha", alt: "CP brand" },
     cta: { label: "This is Chicago Pneumatic", href: "/about" }
   }
 ];
