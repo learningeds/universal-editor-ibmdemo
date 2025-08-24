@@ -263,14 +263,14 @@
 
 .section.grid-cards-cp-v3 .cards-card-body .button-container a{
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
-  font-size:1.3rem !important;
+  font-size:1.2rem !important;
 }
 
 .section.grid-cards-cp-v3 .cards-card-body p {
   margin-bottom: 18px;
   color: #222;
   line-height: 1.35;
-  font-size: clamp(.95rem, 1vw, 1.05rem);
+  font-size: 18px;
 }
 
 /* ========= CTA button ========= */
