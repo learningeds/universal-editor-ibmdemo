@@ -34,13 +34,16 @@
 
 /*cols custom styles for 50-50 cols cp*/
 .fifty-50-cp-section .columns-1-cols h2{
-    font-family: "Arial Black", "Arial Bold", Arial, sans-serif
+    font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
     font-size: 28px;
 }
 
 .fifty-50-cp-section .columns-wrapper{
     padding: 0% 16% 0 16%;
-    padding-top: 1rem;
+}
+
+.fifty-50-cp-section .columns-wrapper h2{
+    padding-top:0 !important;
 }
 
 /* make the row a flex line */
@@ -70,3 +73,5 @@
   height:100%;
   object-fit:cover; /* or 'contain' if you don't want cropping */
 }
+
+ .columns-wrapper
