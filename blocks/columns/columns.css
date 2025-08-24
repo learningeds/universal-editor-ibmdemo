@@ -91,7 +91,7 @@
  .section.fifty-50-col-images .columns.block.columns-2-cols > div > div {
    position: relative;
    overflow: hidden;
-   height: clamp(320px, 34vw, 460px); /* responsive, no aspect-ratio */
+   height: 300px; /* responsive, no aspect-ratio */
    background: #000;
  }
 
@@ -134,5 +134,6 @@
 }
 
 .fifty-50-col-images .columns-wrapper{
+max-width:0 !important;
   padding:0 !important;
 }
