@@ -99,3 +99,13 @@
   text-wrap: balance;
   text-shadow: 0 2px 0 rgba(0,0,0,.25);
 }
+
+.section.grid-cards-cp .cards-wrapper{
+    padding: 1.25rem 10rem 1.75rem 10rem;
+
+}
+
+
+.section.grid-cards-cp .default-content-wrapper{
+    text-align:center;
+}
