@@ -181,6 +181,10 @@
           {
             "name": "Quard Cards cp",
             "value": "quard-cards-cp"
+          },
+          {
+            "name": "Cards Slider cp",
+            "value": "cards-slider-cp"
           }
         ]
       }
