@@ -130,5 +130,5 @@
 .section.grid-cards-cp-v2 .cards-wrapper .cards.block ul{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: .5rem;
+    grid-gap: 24px;
 }
