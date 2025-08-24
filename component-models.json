@@ -173,6 +173,10 @@
           {
             "name": "Horizontal Rule cp",
             "value": "horizontal-rule-cp"
+          },
+          {
+            "name": "Quard Cards cp",
+            "value": "quard-cards-cp"
           }
         ]
       }
