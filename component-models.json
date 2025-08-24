@@ -298,28 +298,33 @@
     "fields": []
   },
   {
-    "search-bar-cp": {
-      "title": {
-        "type": "string",
+    "id": "search-bar-cp",
+    "fields": [
+      {
+        "id": "title",
         "label": "Search Title",
+        "type": "string",
         "default": "Search for what you need"
       },
-      "placeholder": {
+      {
+        "id": "placeholder",
+        "label": "Placeholder",
         "type": "string",
-        "label": "Placeholder Text",
-        "default": "Find products, information, news, events....."
+        "default": "Find products, information, news, events….."
       },
-      "buttonIcon": {
-        "type": "string",
+      {
+        "id": "buttonIcon",
         "label": "Button Icon",
+        "type": "string",
         "default": "🔍"
       },
-      "buttonAriaLabel": {
+      {
+        "id": "buttonAriaLabel",
+        "label": "Button ARIA Label",
         "type": "string",
-        "label": "Button Accessibility Label",
         "default": "Search"
       }
-    }
+    ]
   }
 
 
