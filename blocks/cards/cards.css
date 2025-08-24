@@ -107,3 +107,25 @@
 .cards .cards-card-body {
     margin:0 !important;
 }
+
+/* the overlay that slides up */
+.section.grid-cards-cp .cards-card-image::after {
+  content: "See our full offering of screw compressors →"; /* customize per card via data-attr or override */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -100%; /* hidden initially */
+  background: rgba(0,0,0,0.95);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  transition: bottom .35s ease-in-out;
+  pointer-events: none;
+}
+
+/* when hovering, slide up */
+.section.grid-cards-cp .cards.block li:hover .cards-card-image::after {
+  bottom: 0;
+}
