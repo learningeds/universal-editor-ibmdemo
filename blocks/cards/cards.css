@@ -32,7 +32,7 @@
 .section.grid-cards-cp {
   background: #eee;   /* light gray band as in screenshot */
   margin:2rem;
-  padding: 36rem 0;
+  padding: 36px 0;
 }
 .section.grid-cards-cp .default-content-wrapper h2 {
   text-align: center;
