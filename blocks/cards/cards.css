@@ -30,8 +30,9 @@
 /*custom cards code starts here*/
 /* Section background + centered section title, optional */
 .section.grid-cards-cp {
-  background: #eee;              /* light gray band as in screenshot */
-  padding: 48px 0;
+  background: #eee;   /* light gray band as in screenshot */
+  margin:2rem;
+  padding: 36rem 0;
 }
 .section.grid-cards-cp .default-content-wrapper h2 {
   text-align: center;
@@ -72,7 +73,9 @@
   transform: scale(1.02);
   transition: transform .25s ease;
 }
-
+.section.grid-cards-cp .cards.block li:hover .cards-card-image img {
+  transform: scale(1.06);
+}
 
 /* Black title band */
 .section.grid-cards-cp .cards-card-body {
@@ -87,7 +90,7 @@
   color: #fff;
   font-weight: 800;
   line-height: 1.15;
-  font-size: clamp(1rem, 1.4vw, 34px); /* scales up like screenshot */
+  font-size: 24px; /* scales up like screenshot */
   text-wrap: balance;
   text-shadow: 0 2px 0 rgba(0,0,0,.25);
 }
@@ -106,24 +109,3 @@
     margin:0 !important;
 }
 
-/* the overlay that slides up */
-.section.grid-cards-cp .cards-card-image::after {
-  content: "See our full offering of screw compressors →"; /* customize per card via data-attr or override */
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -100%; /* hidden initially */
-  background: rgba(0,0,0,0.95);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  padding: 20px;
-  transition: bottom .35s ease-in-out;
-  pointer-events: none;
-}
-
-/* when hovering, slide up */
-.section.grid-cards-cp .cards.block li:hover .cards-card-image::after {
-  bottom: 0;
-}
