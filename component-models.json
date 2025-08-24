@@ -280,6 +280,11 @@
       { "component": "tab", "label": "Options", "name": "optTab" },
       { "component": "boolean", "name": "sticky", "label": "Sticky (fixed top)", "valueType": "boolean" }
     ]
+  },
+  {
+    "id": "hero-cp",
+    "fields": []
   }
+
 
 ]
