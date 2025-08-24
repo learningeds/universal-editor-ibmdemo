@@ -51,8 +51,3 @@
 .navigation-bar .row.main nav a[aria-current="page"]::after {
   background: #d4001a;
 }
-
-.navigation-bar .row.top a img {
-  vertical-align: middle;
-  filter: invert(100%); /* optional: make black SVG white on dark bg */
-}

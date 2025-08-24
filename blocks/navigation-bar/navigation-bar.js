@@ -8,7 +8,7 @@ const NAV_CONFIG = {
     href: "/",
   },
   topLinks: [
-    { src: "https://compressors.cp.com/etc.clientlibs/settings/wcm/designs/cp/clientlib-preloaded/resources/img/svg/search-inverted--sprite.svg", alt: "Search", href: "/search" },
+    { label: "🔍", href: "/search" },
     { label: "Back to cp.com", href: "https://cp.com" },
     { label: "Find a dealer", href: "/dealer" },
     { label: "Markets", href: "/markets" },
@@ -125,19 +125,8 @@ export default function decorate(block) {
     topRow.className = "row top";
     (NAV_CONFIG.topLinks || []).forEach((lnk) => {
       const a = document.createElement("a");
+      a.textContent = lnk.label || "";
       a.href = lnk.href || "#";
-
-      if (lnk.src) {
-        const img = document.createElement("img");
-        img.src = lnk.src;
-        img.alt = lnk.alt || "";
-        img.style.height = "18px";   // adjust icon size
-        img.style.width = "auto";
-        a.append(img);
-      } else {
-        a.textContent = lnk.label || "";
-      }
-
       topRow.append(a);
     });
 
