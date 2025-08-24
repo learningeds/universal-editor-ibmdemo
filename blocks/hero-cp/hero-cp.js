@@ -4,7 +4,7 @@
 const HERO_CONFIG = {
   media: {
     // <<< update to your published video paths >>>
-    src: "../media/CP8323 Tire Buffer.mp4",
+    src: "/media/CP8323 Tire Buffer.mp4",
     poster: "https://marcem.com.au/app/uploads/2024/04/Marcem-Social-Media-Planning-2024-1.jpg.avif", // used while loading / as fallback
     autoplay: true,
     loop: true,
