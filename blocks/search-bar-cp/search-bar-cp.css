@@ -1,0 +1,48 @@
+/* Section background + centering */
+.section.search-bar-cp {
+  padding: 48px 0;
+  text-align: center;
+  background: #fff;
+}
+
+/* Title */
+.search-bar-cp-wrapper .search-title {
+  margin-bottom: 20px;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 800;
+  color: #000;
+}
+
+/* Search box */
+.search-bar-cp-wrapper .search-box {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 0 12px;
+  background: #fff;
+  max-width: 600px;
+  width: 100%;
+}
+
+.search-bar-cp-wrapper .search-box input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  flex: 1;
+  padding: 12px;
+}
+
+.search-bar-cp-wrapper .search-box button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #000;
+  padding: 0 8px;
+  transition: color .2s ease;
+}
+
+.search-bar-cp-wrapper .search-box button:hover {
+  color: #d4001a; /* red highlight on hover */
+}

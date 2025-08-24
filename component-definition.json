@@ -192,7 +192,16 @@
               }
             }
           }
+        },
+        {
+          "id": "search-bar-cp",
+          "title": "Search Bar (CP)",
+          "description": "A centered search bar with title and input field.",
+          "group": "CP Custom Blocks",
+          "resourceType": "search-bar-cp",
+          "type": "block"
         }
+
       ]
     }
   ]

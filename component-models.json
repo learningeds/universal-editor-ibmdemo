@@ -296,6 +296,30 @@
   {
     "id": "hero-cp",
     "fields": []
+  },
+  {
+    "search-bar-cp": {
+      "title": {
+        "type": "string",
+        "label": "Search Title",
+        "default": "Search for what you need"
+      },
+      "placeholder": {
+        "type": "string",
+        "label": "Placeholder Text",
+        "default": "Find products, information, news, events....."
+      },
+      "buttonIcon": {
+        "type": "string",
+        "label": "Button Icon",
+        "default": "🔍"
+      },
+      "buttonAriaLabel": {
+        "type": "string",
+        "label": "Button Accessibility Label",
+        "default": "Search"
+      }
+    }
   }
 
 
