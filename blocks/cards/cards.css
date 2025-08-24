@@ -31,13 +31,14 @@
 /* Section background + centered section title, optional */
 .section.grid-cards-cp {
   background: #eee;   /* light gray band as in screenshot */
-  margin:2rem;
-  padding: 35px 0;
+  margin-top:2rem;
+  padding: 35px 0 15px 0;
 }
-.section.grid-cards-cp .default-content-wrapper h2 {
+.section.grid-cards-cp .default-content-wrapper h3 {
   text-align: center;
   margin: 0 0 28px;
-  font-weight: 800;
+  font-weight: 600;
+  font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
 
 /* Cards grid */
@@ -96,7 +97,7 @@
 }
 
 .section.grid-cards-cp .cards-wrapper{
-    padding: 1.25rem 10rem 1.75rem 10rem;
+    padding: .5rem 10rem 1.75rem 10rem;
 
 }
 
