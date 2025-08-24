@@ -1,16 +1,29 @@
-/* Full-width horizontal line */
+/* base hr (keeps working as before) */
 .hr-line {
-  border: none;
-  border-top: 2px solid #ccc;  /* gray by default */
-  margin: 2rem 0;              /* space above/below */
-  width: 100%;                 /* always span the viewport */
+  border: 0;
+  border-top: 2px solid #ccc;
+  height: 0;
+  display: block;
+  width: 100%;
+  margin: 24px 0;
 }
 
-/* Variants if you need them */
-.section.hr-line-dark .hr-line {
-  border-color: #000;
+/* full-bleed variant: stretches to the viewport edges */
+.hr-line--bleed {
+  /* extend beyond any centered/max-width container */
+  --bleed: calc(50vw - 50%);
+  width: calc(100% + 2 * var(--bleed));
+  margin-left: calc(-1 * var(--bleed));
+  margin-right: calc(-1 * var(--bleed));
 }
 
-.section.hr-line-red .hr-line {
-  border-color: #d4001a;
+/* If you want a darker or red line */
+.hr-line-dark { border-top-color: #000; }
+.hr-line-red  { border-top-color: #d4001a; }
+
+/* Optional: deal with mobile dynamic viewport units (Safari/iOS) */
+@supports (width: 100dvw) {
+  .hr-line--bleed {
+    --bleed: calc(50dvw - 50%);
+  }
 }
