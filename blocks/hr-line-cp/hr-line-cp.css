@@ -1,0 +1,16 @@
+/* Full-width horizontal line */
+.hr-line {
+  border: none;
+  border-top: 2px solid #ccc;  /* gray by default */
+  margin: 2rem 0;              /* space above/below */
+  width: 100%;                 /* always span the viewport */
+}
+
+/* Variants if you need them */
+.section.hr-line-dark .hr-line {
+  border-color: #000;
+}
+
+.section.hr-line-red .hr-line {
+  border-color: #d4001a;
+}

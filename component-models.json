@@ -329,7 +329,27 @@
         "default": "Search"
       }
     ]
+  },
+  {
+    "id": "hr-line",
+    "fields": [
+      {
+        "id": "style",
+        "label": "Line Style",
+        "type": "enum",
+        "enum": [
+          "default",
+          "dark",
+          "red"
+        ],
+        "default": "default"
+      },
+      {
+        "id": "thickness",
+        "label": "Thickness (px)",
+        "type": "number",
+        "default": 2
+      }
+    ]
   }
-
-
 ]
