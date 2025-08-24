@@ -64,7 +64,3 @@
   background: #111;
   color: #fff;
 }
-
-@media (min-width: 1100px) {
-  .section.cards-slider-cp .cs-track { grid-auto-columns: 50%; }
-}
