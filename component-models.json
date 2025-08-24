@@ -157,6 +157,10 @@
           {
             "name": "fifty-50 cp Section",
             "value": "fifty-50-cp-Section"
+          },
+          {
+            "name": "Grid Cards cp",
+            "value": "grid-cards-cp"
           }
         ]
       }
