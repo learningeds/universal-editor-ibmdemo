@@ -74,4 +74,8 @@
   object-fit:cover; /* or 'contain' if you don't want cropping */
 }
 
- .columns-wrapper
+
+.fifty-50-cp-section .columns-wrapper p{
+    margin-top:0 !important;
+    margin-bottom: 18px !important;
+}
