@@ -373,5 +373,40 @@
         "default": true
       }
     ]
+  },
+  {
+    "id": "cards-slider-cp",
+    "fields": [
+      {
+        "id": "heading",
+        "label": "Slider Heading",
+        "type": "string"
+      },
+      {
+        "id": "variant",
+        "label": "Slides per view",
+        "type": "string",
+        "enum": ["single", "double"],
+        "default": "single"
+      },
+      {
+        "id": "showDots",
+        "label": "Show Dots",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "showArrows",
+        "label": "Show Arrows",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "note",
+        "label": "Note",
+        "type": "multiline",
+        "default": "⚠️ This slider’s content is hardcoded in /blocks/cards-slider-cp/cards-slider-cp.js"
+      }
+    ]
   }
 ]
