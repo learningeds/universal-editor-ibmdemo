@@ -34,7 +34,8 @@ function css(u, cfg) {
 ${s} {
   position: relative;
   width: 100%;
-  height: ${cfg.layout.height};
+  height: 70vh;   /* fallback for old browsers */
+  height: 70lvh;  /* modern browsers: ignore DevTools shrink */
   min-height: ${cfg.layout.minHeight}px;
   color: #fff;
   overflow: hidden;
