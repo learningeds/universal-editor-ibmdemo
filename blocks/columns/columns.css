@@ -43,23 +43,29 @@
     padding-top: 1rem;
 }
 
-.fifty-50-cp-section .columns-2-cols{
-    display: flex;
-    gap: 24px;
+/* 75/25 for exactly this section's 2-column block */
+.section.fifty-50-cp-section .columns.block.columns-2-cols {
+  display: flex;            /* columns uses flex; reinforce here */
+  gap: 24px;                /* keep your spacing */
+  align-items: stretch;
 }
 
-.fifty-50-cp-section .columns-2-cols > div:nth-child(1){
- flex: 0 0 75%;
+/* first column (text) = 75% */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(1) {
+  flex: 0 0 75%;
   max-width: 75%;
 }
 
-.fifty-50-cp-section .columns-2-cols > div:nth-child(2){
-flex: 0 0 25%;
+/* second column (image) = 25% */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) {
+  flex: 0 0 25%;
   max-width: 25%;
 }
 
-.fifty-50-cp-section .columns-2-cols > div:nth-child(2) img {
+/* make images behave nicely in the 25% column */
+.section.fifty-50-cp-section .columns.block.columns-2-cols > div:nth-child(2) img {
   display: block;
   width: 100%;
-  height: auto;                 /* or use height:100%; object-fit:cover; if you want it to crop */
+  height: auto;            /* or height:100%; object-fit:cover; if you prefer crop */
 }
+
