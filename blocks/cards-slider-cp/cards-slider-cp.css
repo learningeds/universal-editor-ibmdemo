@@ -1,6 +1,6 @@
 /* Section background / spacing */
 .section.cards-slider-cp {
-  padding: 24px 0 40px;
+  padding: 24px 11rem 40px;
   background: #fff; /* your screenshot shows white */
 }
 
@@ -13,10 +13,11 @@
 
 /* Heading at top */
 .section.cards-slider-cp .cs-heading {
-  margin: 0 0 16px;
+  margin: 30px 0 16px 0;
   text-align: center;
   font-weight: 800;
-  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
+  font-size: 35px;
 }
 
 /* Viewport shows one slide per view */
@@ -50,7 +51,7 @@
 /* Big wide image */
 .section.cards-slider-cp .cards-card-image {
   position: relative;
-  aspect-ratio: 21 / 9;          /* make it cinematic like your screenshot */
+  aspect-ratio: 18 / 6;          /* make it cinematic like your screenshot */
   overflow: hidden;
   background: #000;              /* letterboxing look */
 }
@@ -64,13 +65,14 @@
 
 /* Caption row below image (just a red link) */
 .section.cards-slider-cp .cards-card-body {
-  margin-top: 8px;
+  margin-top: 2rem;
   padding: 0 6px;
+  margin-left:25px;
 }
 .section.cards-slider-cp .cards-card-body .cs-link {
   color: #c40017;                /* CP red vibe; adjust if needed */
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 100;
 }
 .section.cards-slider-cp .cards-card-body .cs-link:hover {
   text-decoration: underline;
