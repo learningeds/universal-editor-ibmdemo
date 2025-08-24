@@ -19,6 +19,10 @@
   color: #d4001a; /* brand red */
 }
 
+.navigation-bar .row.main{
+    padding-top: 10px;
+}
+
 /* Reset links */
 .navigation-bar .row.main nav a {
   color: #fff;
