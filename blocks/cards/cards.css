@@ -190,3 +190,6 @@
 @media (max-width:900px){
   .section.quard-cards-cp .cards.block ul{ grid-template-columns:1fr; }
 }
+.section.quard-cards-cp .cards-wrapper{
+    padding: .5rem 10rem 1.75rem 10rem;
+}
