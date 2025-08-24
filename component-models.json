@@ -185,6 +185,10 @@
           {
             "name": "Cards Slider cp",
             "value": "cards-slider-cp"
+          },
+          {
+            "name": "fifty-50 col images",
+            "value": "fifty-50-col-images"
           }
         ]
       }

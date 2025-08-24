@@ -1,6 +1,6 @@
 /* Section background / spacing */
 .section.cards-slider-cp {
-  padding: 24px 11rem 40px;
+  padding: 24px 11rem 0;
   background: #fff; /* your screenshot shows white */
 }
 
@@ -58,7 +58,7 @@
 .section.cards-slider-cp .cards-card-image img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;           
+  object-fit: cover;
   display: block;
   background: #000;
 }
