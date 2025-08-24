@@ -110,8 +110,10 @@
     margin:0 !important;
 }
 
+/*grid-card-v2*/
 .section.grid-cards-cp-v2 .cards-wrapper .cards.block li{
     border:none;
+    width: 150px;
 }
 
 .section.grid-cards-cp-v2 .cards-wrapper{
