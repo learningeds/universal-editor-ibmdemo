@@ -85,9 +85,11 @@
   margin: 14px 0 0;
 }
 .section.cards-slider-cp .cs-dot {
-  width: 10px; height: 10px;
+  all: unset;                /* remove browser default styles */
+  display: inline-block;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: none;
   background: #d0d0d0;
   cursor: pointer;
 }
