@@ -336,7 +336,7 @@
       {
         "id": "style",
         "label": "Line Style",
-        "type": "enum",
+        "type": "string",
         "enum": [
           "default",
           "dark",
@@ -349,6 +349,12 @@
         "label": "Thickness (px)",
         "type": "number",
         "default": 2
+      },
+      {
+        "id": "bleed",
+        "label": "Full-bleed (edge to edge)",
+        "type": "boolean",
+        "default": true
       }
     ]
   }
