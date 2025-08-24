@@ -127,83 +127,66 @@
     grid-gap: 24px;
 }
 
-/* Quad grid: 2x2 */
-.section.quard-cards-cp .cards.block ul {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: 1280px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+/* 2×2 grid */
+.section.quard-cards-cp .cards.block ul{
+  list-style:none; margin:0 auto; padding:0; max-width:1280px;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:12px;
 }
 
-/* Each card tile */
-.section.quard-cards-cp .cards.block li {
-  position: relative;
-  min-height: 360px;
-  overflow: hidden;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
+/* each tile */
+.section.quard-cards-cp .cards.block li{
+  position:relative; overflow:hidden;
+  /* keep all four tiles same height */
+  aspect-ratio: 16 / 9;
+  display:block;
 }
 
-/* Ensure only ONE body shows (ignore duplicate empties) */
-.section.quard-cards-cp .cards-card-body:empty { display: none; }
+/* fill-any-image helper (works for all tiles) */
+.section.quard-cards-cp .cards.block li .cards-card-image,
+.section.quard-cards-cp .cards.block li .cards-card-image picture{
+  position:absolute; inset:0;
+}
+.section.quard-cards-cp .cards.block li .cards-card-image img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+}
 
-/* --- IMAGE TILES (1 & 4) --- */
+/* hide duplicate/empty bodies UE sometimes creates */
+.section.quard-cards-cp .cards-card-body:empty{ display:none; }
+
+/* ---- Tile 1 & 4 = IMAGE ---- */
 .section.quard-cards-cp .cards.block li:nth-child(1),
-.section.quard-cards-cp .cards.block li:nth-child(4) {
-  background: #000;
-}
-.section.quard-cards-cp .cards.block li:nth-child(1) .cards-card-image,
-.section.quard-cards-cp .cards.block li:nth-child(4) .cards-card-image {
-  position: absolute; inset: 0;
-}
-.section.quard-cards-cp .cards.block li:nth-child(1) img,
-.section.quard-cards-cp .cards.block li:nth-child(4) img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+.section.quard-cards-cp .cards.block li:nth-child(4){
+  background:#000; /* fallback while image loads */
 }
 
-/* --- TEXT TILE (2 = RED, 3 = BLACK) --- */
-.section.quard-cards-cp .cards.block li:nth-child(2) .cards-card-body {
-  background: #d4001a;
-  color: #fff;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  padding: clamp(16px, 3vw, 40px);
-  text-align: center;
+/* ---- Tile 2 = RED TEXT PANEL ---- */
+.section.quard-cards-cp .cards.block li:nth-child(2) .cards-card-image{ display:none !important; }
+.section.quard-cards-cp .cards.block li:nth-child(2) .cards-card-body{
+  position:absolute; inset:0; background:#d4001a; color:#fff;
+  display:grid; place-content:center; text-align:center;
+  padding:clamp(16px,3vw,40px);
 }
-.section.quard-cards-cp .cards.block li:nth-child(3) .cards-card-body {
-  background: #000;
-  color: #fff;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  padding: clamp(16px, 3vw, 40px);
-  text-align: center;
+
+/* ---- Tile 3 = BLACK TEXT PANEL ---- */
+.section.quard-cards-cp .cards.block li:nth-child(3) .cards-card-image{ display:none !important; }
+.section.quard-cards-cp .cards.block li:nth-child(3) .cards-card-body{
+  position:absolute; inset:0; background:#000; color:#fff;
+  display:grid; place-content:center; text-align:center;
+  padding:clamp(16px,3vw,40px);
 }
 
 /* Typography */
-.section.quard-cards-cp .cards-card-body p {
-  margin: 0 0 12px;
+.section.quard-cards-cp .cards-card-body p{ margin:0 0 12px; }
+.section.quard-cards-cp .cards-card-body p:first-child{
+  font-weight:800; font-size:clamp(1.4rem,2.6vw,2.2rem); line-height:1.1;
 }
-.section.quard-cards-cp .cards-card-body p:first-child {
-  font-weight: 800;
-  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+.section.quard-cards-cp .cards-card-body a{
+  color:#fff; font-weight:700; text-decoration:none; border-bottom:2px solid rgba(255,255,255,.9);
+  display:inline-block; margin-top:10px; padding-bottom:2px;
 }
-.section.quard-cards-cp .cards-card-body a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-}
-.section.quard-cards-cp .cards-card-body a::after {
-  content: " →";
-}
+.section.quard-cards-cp .cards-card-body a::after{ content:" →"; }
 
-/* Mobile stack */
-@media (max-width: 900px) {
-  .section.quard-cards-cp .cards.block ul { grid-template-columns: 1fr; }
-  .section.quard-cards-cp .cards.block li { min-height: 280px; }
+/* Mobile: stack */
+@media (max-width:900px){
+  .section.quard-cards-cp .cards.block ul{ grid-template-columns:1fr; }
 }
