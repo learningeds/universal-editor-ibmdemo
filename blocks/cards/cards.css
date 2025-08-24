@@ -102,6 +102,7 @@
 
 .section.grid-cards-cp .default-content-wrapper{
     text-align:center;
+    font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
 .cards .cards-card-body {
     margin:0 !important;
