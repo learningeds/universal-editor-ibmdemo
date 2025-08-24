@@ -79,3 +79,77 @@
     margin-top:0 !important;
     margin-bottom: 18px !important;
 }
+
+/* scope to this section only */
+.section.fifty-50-col-images .columns.block.columns-2-cols > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* each column (authoring wrapper) is our card */
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  /* optional card lift */
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+
+/* keep a cinematic ratio and make the image cover */
+.section.fifty-50-col-images .columns.block.columns-2-cols picture,
+.section.fifty-50-col-images .columns.block.columns-2-cols img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* if you want a fixed ratio (like the comp), set it on the column: */
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] {
+  aspect-ratio: 21 / 9;        /* tweak to 18/6 = 3/1 if you prefer */
+  min-height: 360px;           /* guard for short viewports */
+}
+
+/* Make the image fill & crop nicely */
+.section.fifty-50-col-images .columns.block.columns-2-cols img {
+  object-fit: cover;
+}
+
+/* ----- Red band overlay (uses the default-content-wrapper you authored) ----- */
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] .default-content-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;                   /* kill any default margins */
+  padding: 22px 28px;
+  background: rgba(212, 0, 26, .92); /* CP red with slight transparency */
+  color: #fff;
+}
+
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] .default-content-wrapper h1,
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] .default-content-wrapper h2,
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] .default-content-wrapper h3,
+.section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] .default-content-wrapper p {
+  margin: 0;
+  color: #fff;
+  font-weight: 800;
+  line-height: 1.1;
+  font-size: clamp(20px, 2.6vw, 42px);  /* scales like the reference */
+}
+
+/* responsive stack */
+@media (max-width: 900px) {
+  .section.fifty-50-col-images .columns.block.columns-2-cols > div {
+    grid-template-columns: 1fr;
+  }
+  .section.fifty-50-col-images .columns.block.columns-2-cols > div > [data-aue-filter="column"] {
+    aspect-ratio: 16 / 9;
+    min-height: 280px;
+  }
+}
