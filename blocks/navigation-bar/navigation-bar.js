@@ -37,7 +37,7 @@ ${s} .brand img{ width:auto; display:block; }
 
 /* right side: two rows, right aligned */
 ${s} .right{ display:grid; grid-template-rows:auto auto; justify-items:end; align-items:center; gap:.25rem; width:100%; }
-${s} .row.top{ display:flex; gap:2rem; align-items:center; font-size:.78rem; font-family: Arial, sans-serif; }
+${s} .row.top{ display:flex; gap:2rem; align-items:center; font-size:.78rem; font-family: Arial, sans-serif; padding-top: .4rem; }
 ${s} .row.top a{ color:#fff; text-decoration:none; opacity:.9; font-weight:600; }
 ${s} .row.top a:hover{ opacity:1; }
 
