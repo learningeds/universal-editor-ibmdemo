@@ -18,7 +18,7 @@
 .search-bar-cp-wrapper .search-box {
   display: inline-flex;
   align-items: center;
-  border: 2px solid #bbb;
+  border: 1px solid #bbb;
   padding: 0 12px;
   background: #fff;
   max-width: 60%;
