@@ -55,14 +55,3 @@
 .navigation-bar .row.main nav a[aria-current="page"]::after {
   background: #d4001a;
 }
-
-.navigation-bar .row.top .nav-icon {
-  width: 20px;
-  height: 20px;
-  fill: #fff; /* default white */
-  vertical-align: middle;
-}
-
-.navigation-bar .row.top a:hover .nav-icon {
-  fill: #d4001a; /* red on hover */
-}

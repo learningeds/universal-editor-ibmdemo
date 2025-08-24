@@ -8,7 +8,7 @@ const NAV_CONFIG = {
     href: "/",
   },
   topLinks: [
-    { sprite: "https://compressors.cp.com/etc.clientlibs/settings/wcm/designs/cp/clientlib-preloaded/resources/img/svg/search-inverted--sprite.svg", id: "search-inverted", alt: "Search", href: "/search" },
+    { label: "🔍", href: "/search" },
     { label: "Back to cp.com", href: "https://cp.com" },
     { label: "Find a dealer", href: "/dealer" },
     { label: "Markets", href: "/markets" },
@@ -125,28 +125,8 @@ export default function decorate(block) {
     topRow.className = "row top";
     (NAV_CONFIG.topLinks || []).forEach((lnk) => {
       const a = document.createElement("a");
+      a.textContent = lnk.label || "";
       a.href = lnk.href || "#";
-
-      if (lnk.sprite && lnk.id) {
-        // Render one symbol from an SVG sprite
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `${lnk.sprite}#${lnk.id}`);
-        svg.appendChild(use);
-        svg.setAttribute("class", "nav-icon");
-        svg.setAttribute("aria-label", lnk.alt || "");
-        a.append(svg);
-      } else if (lnk.src) {
-        // Regular image
-        const img = document.createElement("img");
-        img.src = lnk.src;
-        img.alt = lnk.alt || "";
-        a.append(img);
-      } else {
-        // Text fallback
-        a.textContent = lnk.label || "";
-      }
-
       topRow.append(a);
     });
 
