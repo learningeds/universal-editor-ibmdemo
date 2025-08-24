@@ -46,3 +46,8 @@
 .search-bar-cp-wrapper .search-box button:hover {
   color: #d4001a; /* red highlight on hover */
 }
+
+search-bar-cp-wrapper h2{
+font-size:28px;
+    font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
+}
