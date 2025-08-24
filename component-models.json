@@ -163,6 +163,10 @@
             "value": "grid-cards-cp"
           },
           {
+            "name": "Grid Cards cp v2",
+            "value": "grid-cards-cp-v2"
+          },
+          {
             "name": "Search Bar cp",
             "value": "search-bar-cp"
           }
