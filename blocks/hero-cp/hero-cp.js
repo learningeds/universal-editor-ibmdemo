@@ -72,13 +72,16 @@ ${s} .content {
   position: relative;
   z-index: 2;
   height: 100%;
-  display: grid;
-  align-items: center;
+  display: flex;
+  align-items: flex-end;
   padding: 1.25rem 1.25rem 1.75rem 1.25rem;
 }
 
 ${s} .inner {
+    margin-bottom: 7rem;
+    padding-left: 5rem;
   max-width: 560px;
+      font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
   /* no card background; text sits on gradient */
 }
 
@@ -91,6 +94,7 @@ ${s} .eyebrow {
 }
 
 ${s} h1 {
+    font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
   margin: 0 0 1rem 0;
   font-weight: 800;
   line-height: 1.05;
