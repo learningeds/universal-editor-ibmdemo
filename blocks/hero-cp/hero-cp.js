@@ -106,8 +106,7 @@ ${s} .cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .65rem 1.25rem;
-  border-radius: 0.25rem;        /* squared corners like pic */
+  padding: .65rem 1.25rem;       /* squared corners like pic */
   font-weight: 700;
   text-decoration: none;
   color: #fff;                   /* white text */
