@@ -1,66 +1,96 @@
+/* Section background / spacing */
 .section.cards-slider-cp {
   padding: 24px 0 40px;
-  background: #eee;
+  background: #fff; /* your screenshot shows white */
 }
 
-.section.cards-slider-cp .cs-viewport {
+/* Centered wrapper width */
+.section.cards-slider-cp .cs-wrap {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Heading at top */
+.section.cards-slider-cp .cs-heading {
+  margin: 0 0 16px;
+  text-align: center;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+}
+
+/* Viewport shows one slide per view */
+.section.cards-slider-cp .cs-viewport {
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 .section.cards-slider-cp .cs-viewport::-webkit-scrollbar { display: none; }
 
+/* Track = one column per slide. FORCE 100% ALWAYS */
 .section.cards-slider-cp .cs-track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  gap: 20px;
-  padding: 0 12px 12px;
+  grid-auto-columns: 100% !important;  /* ONE SLIDE PER VIEW */
+  gap: 0;
   margin: 0;
+  padding: 0;
   list-style: none;
 }
 
+/* Slide card */
 .section.cards-slider-cp .cs-slide {
   scroll-snap-align: center;
-  border: 1px solid #ddd;
-  background: #fff;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
+/* Big wide image */
 .section.cards-slider-cp .cards-card-image {
-  aspect-ratio: 16 / 9;
+  position: relative;
+  aspect-ratio: 21 / 9;          /* make it cinematic like your screenshot */
   overflow: hidden;
+  background: #000;              /* letterboxing look */
 }
 .section.cards-slider-cp .cards-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;           /* keep image without cropping */
+  display: block;
+  background: #000;
 }
 
+/* Caption row below image (just a red link) */
 .section.cards-slider-cp .cards-card-body {
-  padding: 16px 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: 8px;
+  padding: 0 6px;
+}
+.section.cards-slider-cp .cards-card-body .cs-link {
+  color: #c40017;                /* CP red vibe; adjust if needed */
+  text-decoration: none;
+  font-weight: 700;
+}
+.section.cards-slider-cp .cards-card-body .cs-link:hover {
+  text-decoration: underline;
 }
 
-.section.cards-slider-cp .cards-card-body a {
-  margin-top: auto;
-  align-self: flex-start;
-  text-decoration: none;
-  color: #111;
-  border: 2px solid #111;
-  padding: 12px 16px;
-  border-radius: 6px;
-  font-weight: 700;
-  transition: background .2s ease, color .2s ease;
+/* Dots centered below */
+.section.cards-slider-cp .cs-dots {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 12px;
+  margin: 14px 0 0;
 }
-.section.cards-slider-cp .cards-card-body a:hover {
+.section.cards-slider-cp .cs-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #d0d0d0;
+  cursor: pointer;
+}
+.section.cards-slider-cp .cs-dot.active {
   background: #111;
-  color: #fff;
 }
