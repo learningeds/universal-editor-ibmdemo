@@ -1,21 +1,6 @@
-.hr-line {
-  border: 0;
-  border-top: 2px solid #ccc; /* default, thickness overridden inline */
-  width: 100%;
-  margin: 24px 0;
-}
-
-/* optional variants */
-.hr-line-dark { border-top-color: #000; }
-.hr-line-red  { border-top-color: #d4001a; }
-
-/* full-bleed (escapes centered container) */
-.hr-line--bleed {
-  --bleed: calc(50vw - 50%);
-  width: calc(100% + 2 * var(--bleed));
-  margin-left: calc(-1 * var(--bleed));
-  margin-right: calc(-1 * var(--bleed));
-}
-@supports (width: 100dvw) {
-  .hr-line--bleed { --bleed: calc(50dvw - 50%); }
+.hr-line-cp-wrapper{
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
 }
