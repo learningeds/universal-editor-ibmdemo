@@ -126,3 +126,105 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 24px;
 }
+
+/* ===== Quad (2×2) layout ===== */
+.section.quard-cards-cp .cards.block ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  gap: 12px;               /* thin white gutters like screenshot */
+  background: #fff;        /* makes gutters appear white */
+}
+
+/* every tile */
+.section.quard-cards-cp .cards.block li {
+  position: relative;
+  min-height: 360px;       /* tune if you need taller/shorter panels */
+  overflow: hidden;
+  background: #000;        /* fallback for image tiles while loading */
+}
+
+/* IMAGES (1st & 4th tiles) */
+.section.quard-cards-cp .cards.block li:nth-child(1) .cards-card-image,
+.section.quard-cards-cp .cards.block li:nth-child(4) .cards-card-image {
+  position: absolute; inset: 0;
+}
+.section.quard-cards-cp .cards.block li:nth-child(1) .cards-card-image img,
+.section.quard-cards-cp .cards.block li:nth-child(4) .cards-card-image img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* TEXT PANELS (2nd = RED, 3rd = BLACK) */
+.section.quard-cards-cp .cards.block li:nth-child(2),
+.section.quard-cards-cp .cards.block li:nth-child(3) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.section.quard-cards-cp .cards.block li:nth-child(2) .cards-card-body {
+  position: relative; z-index: 1;
+  background: #d4001a;     /* CP red */
+  color: #fff;
+  width: 100%; height: 100%;
+  display: grid;
+  place-content: center;
+  padding: clamp(16px, 3vw, 40px);
+}
+.section.quard-cards-cp .cards.block li:nth-child(3) .cards-card-body {
+  position: relative; z-index: 1;
+  background: #000;
+  color: #fff;
+  width: 100%; height: 100%;
+  display: grid;
+  place-content: center;
+  padding: clamp(16px, 3vw, 40px);
+}
+
+/* remove any duplicate/empty bodies UE may create */
+.section.quard-cards-cp .cards-card-body:empty { display: none; }
+
+/* Typography inside text panels (use paragraphs in UE) */
+.section.quard-cards-cp .cards-card-body p {
+  margin: 0;
+}
+.section.quard-cards-cp .cards-card-body p:first-child {
+  font-weight: 800;
+  font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+  line-height: 1.1;
+  margin-bottom: clamp(8px, 1.2vw, 14px);
+}
+.section.quard-cards-cp .cards-card-body p:not(:first-child) {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.35;
+  opacity: .95;
+}
+
+/* CTA link styling (optional "[… →]" look) */
+.section.quard-cards-cp .cards-card-body a {
+  display: inline-block;
+  margin-top: clamp(10px, 1.2vw, 16px);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(255,255,255,.9);
+  padding-bottom: 2px;
+}
+.section.quard-cards-cp .cards-card-body a::after {
+  content: "  \2192"; /* → */
+}
+.section.quard-cards-cp .cards-card-body a:hover {
+  border-bottom-color: #fff;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .section.quard-cards-cp .cards.block ul {
+    grid-template-columns: 1fr;
+  }
+  .section.quard-cards-cp .cards.block li { min-height: 320px; }
+}
