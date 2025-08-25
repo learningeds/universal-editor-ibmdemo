@@ -109,14 +109,14 @@ export default function decorate(block) {
       brand.textContent = NAV_CONFIG.brand.alt;
     }
 
-    // mobile toggle
+    // toggle
     const toggle = document.createElement("button");
     toggle.className = "toggle";
     toggle.setAttribute("aria-label", "Menu");
     toggle.innerHTML = "<span></span>";
     toggle.addEventListener("click", () => wrap.classList.toggle("open"));
 
-    // right side (two rows)
+    // right side
     const right = document.createElement("div");
     right.className = "right";
 
@@ -146,14 +146,43 @@ export default function decorate(block) {
     const style = document.createElement("style");
     style.textContent = styles(uid, !!NAV_CONFIG.sticky);
 
+    // a spacer used only when fixed fallback is on
+    const spacer = document.createElement("div");
+    spacer.className = "nav-spacer";
+
     // mount
     block.innerHTML = "";
-    block.append(style, wrap);
+    block.append(style, wrap, spacer);
 
-    // behavior
+    // active mark
     markActive(wrap);
+
+    // --- sticky fallback + condense on scroll ---
+    if (NAV_CONFIG.sticky) {
+      const update = () => {
+        const y = window.scrollY || 0;
+
+        // condense after small scroll
+        if (y > 24) wrap.classList.add("condensed");
+        else wrap.classList.remove("condensed");
+
+        // CSS sticky works unless an ancestor has overflow; fallback to fixed
+        // We consider "should be stuck" when y > 0; add .fixed then.
+        if (y > 0) {
+          wrap.classList.add("fixed");
+          spacer.style.height = `${wrap.offsetHeight}px`;
+        } else {
+          wrap.classList.remove("fixed");
+          spacer.style.height = "0px";
+        }
+      };
+
+      // run once + on scroll/resize
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    }
   } catch (e) {
-    // If anything goes wrong, show a small error so you see it in UE
     console.error("[navigation-bar] failed to render", e);
     block.innerHTML = `<div style="padding:8px;background:#fee;color:#900;border:1px solid #f99">
       navigation-bar: render error – check console
