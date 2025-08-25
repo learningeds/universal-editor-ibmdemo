@@ -18,128 +18,145 @@ const NAV_CONFIG = {
     { label: "Expert Corner", href: "/experts" },
     { label: "This is Chicago Pneumatic", href: "/about" },
   ],
-  sticky: true,
+  sticky: false,
 };
 
-// header-cp.js — sticky custom header with "hide top row on scroll"
-// Works as a standalone block decorator.
-// Expected inner markup (already authored inside your block):
-//   .row.top   -> the slim top bar (will hide when scrolled)
-//   .row.main  -> main row with your nav/links/etc.
-//   .brand     -> optional logo/link
-
-const HDR_UID = () =>
-  `cp-header-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
-
-function headerCSS(uid, mode) {
-  const s = `[data-uid="${uid}"]`;
-  const fixed = mode === 'fixed';
-  return `
-/* Header shell */
-${s}{
-  ${fixed
-    ? `position:fixed; top:0; left:0; right:0; width:100vw; z-index:2147483000;`
-    : `position:sticky; top:0; z-index:100;`}
-  background:#000; color:#fff;
+// safe UID without crypto
+function makeUID(prefix = "eds-nav") {
+  return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-/* Shrink state (after small scroll) */
-${s}.condensed .row.top{ display:none; }
+function styles(uid, sticky) {
+  const s = `[data-uid="${uid}"]`;
+  return `
+${s}{ background:#000; color:#fff; ${sticky ? "position:sticky;top:0;z-index:100;" : ""} }
+${s} .wrap{ width:100%; margin:0; border-bottom:4px solid #fff; }
+${s} .bar{ display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:.5rem 4rem 0rem .5rem; align-items:center; }
+${s} .brand{ text-decoration:none; color:inherit; display:flex; align-items:center; gap:.5rem; }
+${s} .brand img{ width:auto; display:block; }
 
-/* Layout (adjust to your taste) */
-${s} .wrap{ width:100%; border-bottom:4px solid #fff; }
-${s} .bar{ display:grid; grid-template-columns:auto 1fr; gap:1rem; padding:.5rem 4rem 0 .5rem; align-items:center; }
-
-${s} .brand img{ display:block; height:32px; width:auto; }
-
-/* Top row links */
-${s} .row.top{ display:flex; gap:2rem; font-size:.78rem; padding-top:.4rem; }
+/* right side: two rows, right aligned */
+${s} .right{ display:grid; grid-template-rows:auto auto; justify-items:end; align-items:center; gap:.25rem; width:100%; }
+${s} .row.top{ display:flex; gap:2rem; align-items:center; font-size:.78rem; font-family: Arial, sans-serif; padding-top: .4rem; }
 ${s} .row.top a{ color:#fff; text-decoration:none; opacity:.9; font-weight:600; }
 ${s} .row.top a:hover{ opacity:1; }
 
-/* Optional underline for current link if you have a nav in .row.main */
-${s} .row.main nav ul{ display:flex; gap:2rem; margin:0; padding:0; list-style:none; }
-${s} .row.main nav a{ color:#fff; text-decoration:none; font-weight:700; padding:.6rem .25rem; position:relative; }
-${s} .row.main nav a[aria-current="page"]::after{
-  content:""; position:absolute; left:0; right:0; bottom:-.45rem; height:3px; background:#d4001a; border-radius:2px;
-}
+${s} .row.main nav > ul{ list-style:none; margin:0; padding:0; display:flex; gap:2rem; }
+${s} .row.main nav a{ color:#fff; text-decoration:none; font-weight:700; letter-spacing:.2px; padding:.6rem .25rem; position:relative; display:inline-block; }
+${s} .row.main nav a[aria-current="page"]::after{ content:""; position:absolute; left:0; right:0; bottom:-.45rem; height:3px; background:#d4001a; border-radius:2px; }
 
-/* Spacer (only used in fixed mode, inserted right after the header) */
-#${uid}-spacer{ height:0; }
-
-/* Mobile tweaks */
-@media (max-width:900px){
-  ${s} .bar{ grid-template-columns:auto 1fr; padding:.25rem 1rem 0 .5rem; }
-  ${s} .row.top{ display:none; } /* always hidden on small screens */
+/* mobile */
+${s} .toggle{ display:none; }
+@media (max-width: 900px){
+  ${s} .bar{ grid-template-columns:auto 1fr auto; }
+  ${s} .toggle{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background:transparent; border:1px solid #333; border-radius:.5rem; }
+  ${s} .right{ grid-template-rows:auto; }
+  ${s} .row.top{ display:none; }
+  ${s} .row.main nav > ul{ display:none; position:absolute; left:0; right:0; top:100%; background:#000; padding:.5rem 1rem; flex-direction:column; gap:.25rem; border-top:1px solid #222; }
+  ${s}.open .row.main nav > ul{ display:flex; }
 }
 `;
 }
 
-function markCurrentLinks(scope) {
-  const here = window.location.pathname.replace(/index\.html$/, '');
-  scope.querySelectorAll('a[href]').forEach((a) => {
-    const href = (a.getAttribute('href') || '').replace(/index\.html$/, '');
-    if (href === here) a.setAttribute('aria-current', 'page');
+function buildMenu(items) {
+  const ul = document.createElement("ul");
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = item.label || "";
+    a.href = item.href || "#";
+    li.append(a);
+    ul.append(li);
+  });
+  return ul;
+}
+
+function markActive(scope) {
+  const here = window.location.pathname.replace(/index\.html$/, "");
+  scope.querySelectorAll("a[href]").forEach((a) => {
+    const href = (a.getAttribute("href") || "").replace(/index\.html$/, "");
+    if (href === here) a.setAttribute("aria-current", "page");
+    try {
+      const u = new URL(a.href);
+      if (u.origin !== window.location.origin) a.target = "_blank";
+    } catch {}
   });
 }
 
 export default function decorate(block) {
-  const uid = HDR_UID();
+  try {
+    const uid = makeUID();
+    const wrap = document.createElement("div");
+    wrap.dataset.uid = uid;
+    wrap.className = "navigation-bar";
 
-  // Detect author so we don't hoist and break the UE overlay
-  const isAuthor =
-    /author-/i.test(location.hostname) ||
-    document.querySelector('[data-aue-resource]');
+    const container = document.createElement("div");
+    container.className = "wrap";
 
-  const mode = isAuthor ? 'sticky' : 'fixed';
+    const bar = document.createElement("div");
+    bar.className = "bar";
 
-  // Build shell and move authored content into it
-  const shell = document.createElement('header');
-  shell.dataset.uid = uid;
-  shell.className = 'header-cp';
+    // brand
+    const brand = document.createElement("a");
+    brand.className = "brand brand-cp";
+    brand.href = NAV_CONFIG.brand.href || "/";
+    if (NAV_CONFIG.brand.logo) {
+      const img = document.createElement("img");
+      img.src = NAV_CONFIG.brand.logo;
+      img.alt = NAV_CONFIG.brand.alt || "";
+      brand.append(img);
+    } else if (NAV_CONFIG.brand.alt) {
+      brand.textContent = NAV_CONFIG.brand.alt;
+    }
 
-  const wrap = document.createElement('div');
-  wrap.className = 'wrap';
+    // mobile toggle
+    const toggle = document.createElement("button");
+    toggle.className = "toggle";
+    toggle.setAttribute("aria-label", "Menu");
+    toggle.innerHTML = "<span></span>";
+    toggle.addEventListener("click", () => wrap.classList.toggle("open"));
 
-  const bar = document.createElement('div');
-  bar.className = 'bar';
+    // right side (two rows)
+    const right = document.createElement("div");
+    right.className = "right";
 
-  // Keep your authored children; just relocate them into .bar
-  while (block.firstChild) bar.append(block.firstChild);
-  wrap.append(bar);
-  shell.append(wrap);
+    const topRow = document.createElement("div");
+    topRow.className = "row top";
+    (NAV_CONFIG.topLinks || []).forEach((lnk) => {
+      const a = document.createElement("a");
+      a.textContent = lnk.label || "";
+      a.href = lnk.href || "#";
+      topRow.append(a);
+    });
 
-  // CSS
-  const style = document.createElement('style');
-  style.textContent = headerCSS(uid, mode);
-  document.head.appendChild(style);
+    const mainRow = document.createElement("div");
+    mainRow.className = "row main";
+    const nav = document.createElement("nav");
+    nav.append(buildMenu(NAV_CONFIG.mainMenu || []));
+    mainRow.append(nav);
 
-  if (mode === 'fixed') {
-    // Hoist to <body> to avoid sticky/overflow/transform issues
-    const spacer = document.createElement('div');
-    spacer.id = `${uid}-spacer`;
+    right.append(topRow, mainRow);
 
-    document.body.prepend(shell);
-    shell.after(spacer);
+    // assemble
+    bar.append(brand, right, toggle);
+    container.append(bar);
+    wrap.append(container);
 
-    // Keep spacer in sync with header height (prevents layout jump)
-    const setSpacer = () => { spacer.style.height = `${shell.offsetHeight}px`; };
-    setSpacer();
-    new ResizeObserver(setSpacer).observe(shell);
-  } else {
-    // Author: keep in place
-    block.innerHTML = '';
-    block.append(shell);
+    // styles
+    const style = document.createElement("style");
+    style.textContent = styles(uid, !!NAV_CONFIG.sticky);
+
+    // mount
+    block.innerHTML = "";
+    block.append(style, wrap);
+
+    // behavior
+    markActive(wrap);
+  } catch (e) {
+    // If anything goes wrong, show a small error so you see it in UE
+    console.error("[navigation-bar] failed to render", e);
+    block.innerHTML = `<div style="padding:8px;background:#fee;color:#900;border:1px solid #f99">
+      navigation-bar: render error – check console
+    </div>`;
   }
-
-  // Hide the top row after slight scroll
-  const onScroll = () => {
-    if ((window.scrollY || 0) > 10) shell.classList.add('condensed');
-    else shell.classList.remove('condensed');
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  // Optional: underline current nav link in .row.main
-  markCurrentLinks(shell);
 }
