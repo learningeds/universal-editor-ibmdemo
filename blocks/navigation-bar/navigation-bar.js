@@ -18,7 +18,7 @@ const NAV_CONFIG = {
     { label: "Expert Corner", href: "/experts" },
     { label: "This is Chicago Pneumatic", href: "/about" },
   ],
-  sticky: false,
+  sticky: true,
 };
 
 // safe UID without crypto
