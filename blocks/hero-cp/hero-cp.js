@@ -83,8 +83,8 @@ function css(u, cfg) {
 ${s} {
   position: relative;
   width: 100%;
-  height: 90vh;   /* fallback */
-  height: 90lvh;  /* modern browsers */
+  height: 85vh;   /* fallback */
+  height: 85lvh;  /* modern browsers */
   min-height: ${cfg.layout.minHeight}px;
   color: #fff;
   overflow: hidden;
@@ -131,8 +131,8 @@ ${s} .content {
   padding: 1.25rem 1.25rem 1.75rem 1.25rem;
 }
 ${s} .inner {
-  margin-bottom: 4.5rem;
-  padding-left: 4.5rem;
+  margin-bottom: 5rem;
+  padding-left: 5rem;
   max-width: 560px;
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
 }
