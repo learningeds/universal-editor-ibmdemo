@@ -131,7 +131,7 @@ ${s} .content {
   padding: 1.25rem 1.25rem 1.75rem 1.25rem;
 }
 ${s} .inner {
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
   padding-left: 5rem;
   max-width: 560px;
   font-family: "Arial Black", "Arial Bold", Arial, sans-serif;
@@ -141,7 +141,7 @@ ${s} h1 {
   margin: 0 0 1rem 0;
   font-weight: 800;
   line-height: 1.05;
-  font-size: clamp(1.75rem, 3.6vw, 3rem);
+  font-size:42px;
   white-space: pre-line;
 }
 
